@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.pragma.plazoleta.infrastructure.input.rest.AdminControllerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-06-19T05:37:01" hostname="RICARDOPAEZ" time="0.342">
+  <properties/>
+  <testcase name="testSaveOwner_HU1_invalid()" classname="com.pragma.plazoleta.infrastructure.input.rest.AdminControllerTest" time="0.283"/>
+  <testcase name="testSaveOwner_HU1_valid()" classname="com.pragma.plazoleta.infrastructure.input.rest.AdminControllerTest" time="0.03"/>
+  <testcase name="testCrateRestaurant_HU2_invalid()" classname="com.pragma.plazoleta.infrastructure.input.rest.AdminControllerTest" time="0.015"/>
+  <testcase name="testCrateRestaurant_HU2_valid()" classname="com.pragma.plazoleta.infrastructure.input.rest.AdminControllerTest" time="0.007"/>
+  <system-out><![CDATA[00:36:58.654 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.pragma.plazoleta.infrastructure.input.rest.AdminControllerTest]: AdminControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:36:58.789 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.pragma.plazoleta.PlazoletaApplication for test class com.pragma.plazoleta.infrastructure.input.rest.AdminControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.0)
+
+2023-06-19T00:36:59.278-05:00  INFO 7664 --- [    Test worker] c.p.p.i.input.rest.AdminControllerTest   : Starting AdminControllerTest using Java 17.0.7 with PID 7664 (started by ricardo.paez_pragma in C:\Users\ricardo.paez_pragma\Documents\Repositorios\Proyecto Plazoleta\Microservicio-Plazoleta)
+2023-06-19T00:36:59.279-05:00  INFO 7664 --- [    Test worker] c.p.p.i.input.rest.AdminControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2023-06-19T00:37:00.813-05:00  INFO 7664 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'com.pragma.plazoleta.infrastructure.output.feign.feingclient.IUserMicroserviceFeign' of type [org.springframework.cloud.openfeign.FeignClientFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-06-19T00:37:01.440-05:00  INFO 7664 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-06-19T00:37:01.440-05:00  INFO 7664 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-06-19T00:37:01.446-05:00  INFO 7664 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2023-06-19T00:37:01.548-05:00  INFO 7664 --- [    Test worker] c.p.p.i.input.rest.AdminControllerTest   : Started AdminControllerTest in 2.69 seconds (process running for 3.957)
+Field error in object 'userDto' on field 'cellPhone': rejected value [qwertyuiop]; codes [Pattern.userDto.cellPhone,Pattern.cellPhone,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.cellPhone,cellPhone]; arguments []; default message [cellPhone],[Ljakarta.validation.constraints.Pattern$Flag;@448892f1,\+?\d+]; default message [Solo se permiten números]
+Field error in object 'userDto' on field 'password': rejected value []; codes [NotBlank.userDto.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.password,password]; arguments []; default message [password]]; default message [Contraseña  requerido]
+Field error in object 'userDto' on field 'email': rejected value []; codes [NotBlank.userDto.email,NotBlank.email,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.email,email]; arguments []; default message [email]]; default message [Correo requerido]
+Field error in object 'userDto' on field 'dateBirth': rejected value [null]; codes [NotNull.userDto.dateBirth,NotNull.dateBirth,NotNull.java.time.LocalDate,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.dateBirth,dateBirth]; arguments []; default message [dateBirth]]; default message [Fecha de nacimiento requerido]
+Field error in object 'userDto' on field 'name': rejected value []; codes [NotBlank.userDto.name,NotBlank.name,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.name,name]; arguments []; default message [name]]; default message [Nombre requerido.]
+Field error in object 'userDto' on field 'lastName': rejected value []; codes [NotBlank.userDto.lastName,NotBlank.lastName,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.lastName,lastName]; arguments []; default message [lastName]]; default message [Apellido requerido.]
+Field error in object 'userDto' on field 'documentId': rejected value [rpoas]; codes [Pattern.userDto.documentId,Pattern.documentId,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.documentId,documentId]; arguments []; default message [documentId],[Ljakarta.validation.constraints.Pattern$Flag;@448892f1,\d+]; default message [Solo se permiten números]
+Field error in object 'restaurantDto' on field 'phone': rejected value [qwertyuiop]; codes [Pattern.restaurantDto.phone,Pattern.phone,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [restaurantDto.phone,phone]; arguments []; default message [phone],[Ljakarta.validation.constraints.Pattern$Flag;@448892f1,(^$|^(\+)?[0-9]+$)]; default message [Solo se permiten números]
+Field error in object 'restaurantDto' on field 'nit': rejected value [RPAS]; codes [Pattern.restaurantDto.nit,Pattern.nit,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [restaurantDto.nit,nit]; arguments []; default message [nit],[Ljakarta.validation.constraints.Pattern$Flag;@448892f1,\d*]; default message [Solo se permiten números]
+Field error in object 'restaurantDto' on field 'address': rejected value []; codes [NotBlank.restaurantDto.address,NotBlank.address,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [restaurantDto.address,address]; arguments []; default message [address]]; default message [Dirección requerida.]
+Field error in object 'restaurantDto' on field 'urlLogo': rejected value []; codes [NotBlank.restaurantDto.urlLogo,NotBlank.urlLogo,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [restaurantDto.urlLogo,urlLogo]; arguments []; default message [urlLogo]]; default message [url del logo requerida.]
+Field error in object 'restaurantDto' on field 'name': rejected value []; codes [Pattern.restaurantDto.name,Pattern.name,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [restaurantDto.name,name]; arguments []; default message [name],[Ljakarta.validation.constraints.Pattern$Flag;@448892f1,^(?!\d+$)[a-zA-Z0-9]+$]; default message [El nombre no puede estar vacio o compuesto solo de números.]
+Field error in object 'restaurantDto' on field 'ownerId': rejected value [null]; codes [NotNull.restaurantDto.ownerId,NotNull.ownerId,NotNull.java.lang.Integer,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [restaurantDto.ownerId,ownerId]; arguments []; default message [ownerId]]; default message [Doc Identidad requerido.]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
