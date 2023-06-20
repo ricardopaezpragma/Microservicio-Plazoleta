@@ -15,4 +15,14 @@ public class DishUseCase implements IDishServicePort {
     public void createDish(Dish dish) {
         dishPersistencePort.createDish(dish);
     }
+
+    @Override
+    public void updateDish(Dish dish) {
+        dishPersistencePort.updateDish(dish);
+    }
+
+    @Override
+    public Dish getDishById(int dishId) {
+        return dishPersistencePort.getDishById(dishId);
+    }
 }

@@ -71,4 +71,36 @@ class OwnerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON));
     }
 
+    @Test
+    public void updateDish_HU4_valid() throws Exception {
+        MediaType textPlainUtf8 = new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8);
+        String userDto = "{\n" +
+                "    \"id\": 8,\n" +
+                "    \"description\": \"Super Hamburguesa\",\n" +
+                "    \"price\": \"25000\"\n" +
+                "}";
+        mockMvc.perform(MockMvcRequestBuilders.put("/owner/dish")
+                        .content(userDto)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void updateDish_HU4_invalid() throws Exception {
+        MediaType textPlainUtf8 = new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8);
+        String userDto = "{\n" +
+                "    \"id\": null,\n" +
+                "    \"description\": \"\",\n" +
+                "    \"price\": \"-25000\"\n" +
+                "}";
+        mockMvc.perform(MockMvcRequestBuilders.put("/owner/dish")
+                        .content(userDto)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is("Id requerido para modificar.")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description", Is.is("Descripción requerida.")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price", Is.is("El precio tiene que ser mayor a 0 y ser un número entero.")))
+                .andExpect(MockMvcResultMatchers.content()
+                        .contentType(MediaType.APPLICATION_JSON));
+    }
 }

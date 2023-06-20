@@ -1,6 +1,7 @@
 package com.pragma.plazoleta.infrastructure.advice;
 
 import com.pragma.plazoleta.application.exception.UserIsNotOwnerException;
+import com.pragma.plazoleta.infrastructure.exception.DishNotFoundException;
 import com.pragma.plazoleta.infrastructure.exception.RestaurantNotFoundException;
 import com.pragma.plazoleta.infrastructure.exception.UserAlreadyExistException;
 import com.pragma.plazoleta.infrastructure.exception.UserNotFoundException;
@@ -55,6 +56,14 @@ public ResponseEntity userAlreadyExistException(UserAlreadyExistException error)
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
                 "El restaurante con id: "+error.getRestaurantId()+" no existe.");
         problemDetail.setTitle("Restaurante no encontrado.");
+        return ResponseEntity.status(404).body(problemDetail);
+    }
+    @ExceptionHandler(value = DishNotFoundException.class)
+    public ResponseEntity dishNotFoundException(DishNotFoundException error) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
+                error.getMessage());
+        problemDetail.setTitle("Plato no encontrado.");
         return ResponseEntity.status(404).body(problemDetail);
     }
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)

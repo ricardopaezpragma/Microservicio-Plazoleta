@@ -1,9 +1,11 @@
 package com.pragma.plazoleta.application.handler;
 
 import com.pragma.plazoleta.application.dto.DishDto;
+import com.pragma.plazoleta.application.dto.DishUpdateDto;
 import com.pragma.plazoleta.application.mapper.DishDtoMapper;
 import com.pragma.plazoleta.domain.api.IDishServicePort;
 import com.pragma.plazoleta.domain.api.IRestaurantServicePort;
+import com.pragma.plazoleta.domain.model.Dish;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,5 +23,19 @@ public class DishHandlerImp implements IDishHandler {
         dishDto.setActive(true);
         restaurantServicePort.getRestaurantById(dishDto.getRestaurantId());
         dishServicePort.createDish(dishDtoMapper.dishDtoToDish(dishDto));
+    }
+
+    @Override
+    public void updateDish(DishUpdateDto dishUpdateDto) {
+        Dish dish = dishDtoMapper.dishDtoToDish(this.getDishById(dishUpdateDto.id()));
+        dish.setId(dishUpdateDto.id());
+        dish.setPrice(Integer.parseInt(dishUpdateDto.price()));
+        dish.setDescription(dishUpdateDto.description());
+        dishServicePort.updateDish(dish);
+    }
+
+    @Override
+    public DishDto getDishById(int dishId) {
+        return dishDtoMapper.dishToDishDto(dishServicePort.getDishById(dishId));
     }
 }
