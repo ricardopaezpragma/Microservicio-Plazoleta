@@ -4,6 +4,7 @@ import com.pragma.plazoleta.application.mapper.UserDtoMapper;
 import com.pragma.plazoleta.domain.model.User;
 import com.pragma.plazoleta.domain.spi.IUserPersistencePort;
 import com.pragma.plazoleta.infrastructure.exception.UserAlreadyExistException;
+import com.pragma.plazoleta.infrastructure.exception.UserNotFoundException;
 import com.pragma.plazoleta.infrastructure.output.feign.feingclient.IUserMicroserviceFeign;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,9 +16,15 @@ public class UserMicroserviceAdapter implements IUserPersistencePort {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    public User getUserById(int userId) {
+        return userDtoMapper.userDtoToUser(userMicroserviceFeign.getUserId(userId)
+                .orElseThrow(()-> new UserNotFoundException(userId)));
+    }
+
+    @Override
     public User getUserByEmail(String email) {
         return userDtoMapper.userDtoToUser(userMicroserviceFeign.getUserByEmail(email)
-                .orElseThrow(() -> new RuntimeException()));
+                .orElseThrow(()-> new UserNotFoundException(email)));
     }
 
     @Override

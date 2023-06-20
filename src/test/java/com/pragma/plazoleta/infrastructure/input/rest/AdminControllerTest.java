@@ -1,5 +1,6 @@
 package com.pragma.plazoleta.infrastructure.input.rest;
 
+import com.pragma.plazoleta.application.handler.IDishHandler;
 import com.pragma.plazoleta.application.handler.IUserHandler;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,9 @@ class AdminControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private IUserHandler userHandler;
+
+    @MockBean
+    IDishHandler dishHandler;
     @MockBean
     AdminController adminController;
 

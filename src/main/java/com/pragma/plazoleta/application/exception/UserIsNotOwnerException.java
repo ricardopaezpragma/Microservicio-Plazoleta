@@ -1,4 +1,4 @@
-package com.pragma.plazoleta.infrastructure.exception;
+package com.pragma.plazoleta.application.exception;
 
 import lombok.Getter;
 

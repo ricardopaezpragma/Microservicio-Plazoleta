@@ -2,7 +2,7 @@ package com.pragma.plazoleta.infrastructure.output.jpa.adapter;
 
 import com.pragma.plazoleta.domain.model.Restaurant;
 import com.pragma.plazoleta.domain.spi.IRestaurantPersistencePort;
-import com.pragma.plazoleta.infrastructure.exception.UserIsNotOwnerException;
+import com.pragma.plazoleta.infrastructure.exception.RestaurantNotFoundException;
 import com.pragma.plazoleta.infrastructure.exception.UserNotFoundException;
 import com.pragma.plazoleta.infrastructure.output.feign.feingclient.IUserMicroserviceFeign;
 import com.pragma.plazoleta.infrastructure.output.jpa.mapper.RestaurantEntityMapper;
@@ -14,19 +14,15 @@ public class RestaurantJpaAdapter implements IRestaurantPersistencePort {
 
     private final IRestaurantRepository restaurantRepository;
     private final RestaurantEntityMapper restaurantEntityMapper;
-    private final IUserMicroserviceFeign userMicroserviceFeign;
+
+    @Override
+    public Restaurant getRestaurantById(int restaurantId) {
+        return restaurantEntityMapper.toRestaurant(restaurantRepository.findById(restaurantId)
+                .orElseThrow(()->new RestaurantNotFoundException(restaurantId)));
+    }
 
     @Override
     public void crateRestaurant(Restaurant restaurant) {
-        userMicroserviceFeign.getUserId(restaurant.getOwnerId())
-                .ifPresentOrElse(userDto -> {
-                    if (!userDto.getRole().equals("Propietario")) {
-                        throw new UserIsNotOwnerException(userDto.getName() + " " + userDto.getLastName() + " no es propietario.");
-                    }
-                    restaurantRepository.save(restaurantEntityMapper.toEntity(restaurant));
-                }, () -> {
-                    throw new UserNotFoundException(restaurant.getOwnerId());
-                });
-
+        restaurantRepository.save(restaurantEntityMapper.toEntity(restaurant));
     }
 }

@@ -12,6 +12,11 @@ public class RestaurantUseCase implements IRestaurantServicePort {
     }
 
     @Override
+    public Restaurant getRestaurantById(int restaurantId) {
+        return restaurantPersistencePort.getRestaurantById(restaurantId);
+    }
+
+    @Override
     public void crateRestaurant(Restaurant restaurant) {
         restaurantPersistencePort.crateRestaurant(restaurant);
     }

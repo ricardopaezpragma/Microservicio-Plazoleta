@@ -12,6 +12,6 @@ public interface IUserMicroserviceFeign {
     void saveUser(@RequestBody UserDto userDto);
     @GetMapping("/user/{userId}")
     Optional<UserDto> getUserId(@PathVariable int userId);
-    @GetMapping("/user/user-email/{email}")
+    @GetMapping("/user/email/{email}")
     Optional<UserDto> getUserByEmail(@PathVariable String email);
 }
