@@ -21,6 +21,11 @@ import com.pragma.plazoleta.infrastructure.output.jpa.repository.IRestaurantRepo
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -33,33 +38,38 @@ public class BeanConfiguration {
     private final RestaurantEntityMapper restaurantEntityMapper;
     private final IDishRepository dishRepository;
     private final DishEntityMapper dishEntityMapper;
+
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
     @Bean
-    public IUserServicePort userServicePort(){
+    public IUserServicePort userServicePort() {
         return new UserUseCase(userPersistencePort());
     }
 
     @Bean
     public IUserPersistencePort userPersistencePort() {
-        return new UserMicroserviceAdapter(userMicroserviceFeign, userDtoMapper,encoder());
+        return new UserMicroserviceAdapter(userMicroserviceFeign, userDtoMapper, encoder());
     }
+
     @Bean
-    public IRestaurantServicePort restaurantServicePort(){
+    public IRestaurantServicePort restaurantServicePort() {
         return new RestaurantUseCase(restaurantPersistencePort());
     }
+
     @Bean
-    public IRestaurantPersistencePort restaurantPersistencePort(){
-        return new RestaurantJpaAdapter(restaurantRepository,restaurantEntityMapper);
+    public IRestaurantPersistencePort restaurantPersistencePort() {
+        return new RestaurantJpaAdapter(restaurantRepository, restaurantEntityMapper);
     }
+
     @Bean
-    public IDishServicePort dishServicePort(){
+    public IDishServicePort dishServicePort() {
         return new DishUseCase(dishPersistencePort());
     }
+
     @Bean
-    public IDishPersistencePort dishPersistencePort(){
-        return new DishJpaAdapter(dishRepository,dishEntityMapper);
+    public IDishPersistencePort dishPersistencePort() {
+        return new DishJpaAdapter(dishRepository, dishEntityMapper);
     }
 }
