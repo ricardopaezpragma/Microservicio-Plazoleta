@@ -1,17 +1,12 @@
 package com.pragma.plazoleta.infrastructure.exception;
 
-import lombok.Getter;
-
-@Getter
 public class UserNotFoundException extends RuntimeException {
-    private String email;
-    private int userId;
 
     public UserNotFoundException(int userId) {
-        this.userId = userId;
+        super("No existe ningun usuario con id: " + userId);
     }
 
     public UserNotFoundException(String email) {
-        this.email = email;
+        super("El usuario con correo: " + email + " no existe");
     }
 }

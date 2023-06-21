@@ -22,7 +22,7 @@ public class RestaurantHandlerHandler implements IRestaurantHandler{
     public void crateRestaurant(RestaurantDto restaurantDto) {
         User user = userServicePort.getUserById(restaurantDto.getOwnerId());
         if (!user.getRole().equals("Propietario")) {
-            throw new UserIsNotOwnerException(user.getName() + " " + user.getLastName() + " no es propietario.");
+            throw new UserIsNotOwnerException(user.getName(),user.getLastName());
         }
         restaurantServicePort.crateRestaurant(restaurantDtoMapper.restaurantDtoToRestaurant(restaurantDto));
     }

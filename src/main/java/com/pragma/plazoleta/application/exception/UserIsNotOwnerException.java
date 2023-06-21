@@ -1,12 +1,8 @@
 package com.pragma.plazoleta.application.exception;
 
-import lombok.Getter;
+public class UserIsNotOwnerException extends RuntimeException {
 
-@Getter
-public class UserIsNotOwnerException extends RuntimeException{
-
-    private String errorMessage;
-    public UserIsNotOwnerException(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public UserIsNotOwnerException(String name, String lastName) {
+        super(name + " " + lastName + " " + " no es propietario.");
     }
 }

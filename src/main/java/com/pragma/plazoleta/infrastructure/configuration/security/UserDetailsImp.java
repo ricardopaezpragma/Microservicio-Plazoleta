@@ -17,7 +17,6 @@ public class UserDetailsImp implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
        return Collections.singleton(new SimpleGrantedAuthority(userDto.getRole()));
-       //return Collections.EMPTY_LIST;
     }
     public String getName(){
         return userDto.getName();

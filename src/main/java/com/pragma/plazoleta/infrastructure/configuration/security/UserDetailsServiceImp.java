@@ -18,6 +18,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String emailUser) throws UsernameNotFoundException {
             UserDto userDto = userHandler.getUserByEmail(emailUser);
+        //System.out.println(new BCryptPasswordEncoder().encode("Admin"));
+        //System.out.println(new BCryptPasswordEncoder().matches(userDto.getPassword(),"Admin"));
             return new UserDetailsImp(userDto);
 
     }

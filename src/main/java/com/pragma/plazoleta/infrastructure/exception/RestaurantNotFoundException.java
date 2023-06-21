@@ -1,11 +1,7 @@
 package com.pragma.plazoleta.infrastructure.exception;
 
-import lombok.Getter;
-
-@Getter
-public class RestaurantNotFoundException extends RuntimeException{
-    private final int restaurantId;
+public class RestaurantNotFoundException extends RuntimeException {
     public RestaurantNotFoundException(int restaurantId) {
-        this.restaurantId=restaurantId;
+        super("El restaurante con id: " + restaurantId + " no existe.");
     }
 }
