@@ -12,7 +12,7 @@ import java.util.*;
 
 public class TokenUtils {
     private static final String ACCESS_TOKEN_SECRET = "RicardoPaezPragma/MicroservicioPlazoleta2023";
-    private static final Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_00L;
+    private static final Long ACCESS_TOKEN_VALIDITY_SECONDS = 2629743L;
 
     public static String createToken(String name, String lastName, String email, String authorities) {
         long expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS * 1_000;

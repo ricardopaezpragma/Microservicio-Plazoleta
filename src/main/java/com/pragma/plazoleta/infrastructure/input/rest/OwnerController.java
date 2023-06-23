@@ -2,7 +2,9 @@ package com.pragma.plazoleta.infrastructure.input.rest;
 
 import com.pragma.plazoleta.application.dto.DishDto;
 import com.pragma.plazoleta.application.dto.DishUpdateDto;
+import com.pragma.plazoleta.application.dto.UserDto;
 import com.pragma.plazoleta.application.handler.IDishHandler;
+import com.pragma.plazoleta.application.handler.IUserHandler;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class OwnerController {
 
     private final IDishHandler dishHandler;
+    private final IUserHandler userHandler;
 
     @PostMapping("/dish")
     public ResponseEntity createDish(@Valid  @RequestBody DishDto dishDto){
@@ -28,5 +31,11 @@ public class OwnerController {
     public ResponseEntity updateDish(@Valid @RequestBody DishUpdateDto dishUpdateDto){
         dishHandler.updateDish(dishUpdateDto);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/employee")
+    public ResponseEntity saveEmployee(@Valid @RequestBody UserDto userDto){
+        userHandler.saveEmployee(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

@@ -3,13 +3,13 @@ package com.pragma.plazoleta.infrastructure.input.rest;
 import com.pragma.plazoleta.application.handler.IDishHandler;
 import com.pragma.plazoleta.application.handler.IUserHandler;
 import org.hamcrest.core.Is;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -25,11 +25,11 @@ class AdminControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private IUserHandler userHandler;
-
     @MockBean
     IDishHandler dishHandler;
     @MockBean
     AdminController adminController;
+    private String token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE2OTAxMTA5MDQsImxhc3ROYW1lIjoiVXN1YXJpbyIsIm5hbWUiOiJBZG1pbiIsImF1dGhvcml0aWVzIjoiQWRtaW5pc3RyYWRvciJ9.kfQVwwMT--hZZYA07_3vsrlGXmc8MdiKecPxNVGILDE";
 
     @Test
     public void testSaveOwner_HU1_valid() throws Exception {
@@ -42,6 +42,7 @@ class AdminControllerTest {
                 "\"password\": \"3183404089\", " +
                 "\"email\" : \"bob@domain.com\"}";
         mockMvc.perform(MockMvcRequestBuilders.post("/admin/owner")
+                        .header("Authorization", "Bearer " + token)
                         .content(userDto)
                         .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -57,6 +58,7 @@ class AdminControllerTest {
                 "\"password\": \"\", " +
                 "\"email\" : \"\"}";
         mockMvc.perform(MockMvcRequestBuilders.post("/admin/owner")
+                        .header("Authorization", "Bearer " + token)
                         .content(userDto)
                         .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -81,6 +83,7 @@ class AdminControllerTest {
                 "\"urlLogo\": \"https://cdn-icons-png.flaticon.com/512/732/732217.png\", " +
                 "\"nit\" : \"000112222\"}";
         mockMvc.perform(MockMvcRequestBuilders.post("/admin/restaurant")
+                        .header("Authorization", "Bearer " + token)
                         .content(userDto)
                         .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -95,6 +98,7 @@ class AdminControllerTest {
                 "\"urlLogo\": \"\", " +
                 "\"nit\" : \"RPAS\"}";
         mockMvc.perform(MockMvcRequestBuilders.post("/admin/restaurant")
+                        .header("Authorization", "Bearer " + token)
                         .content(userDto)
                         .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())

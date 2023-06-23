@@ -29,7 +29,7 @@ public class AdminController {
     };
     @PostMapping("/restaurant")
     public ResponseEntity crateRestaurant(@Valid @RequestBody RestaurantDto restaurantDto){
-        restaurantHandler.crateRestaurant(restaurantDto);
+        restaurantHandler.createRestaurant(restaurantDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     };
 }

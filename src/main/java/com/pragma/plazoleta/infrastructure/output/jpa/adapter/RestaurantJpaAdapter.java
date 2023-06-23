@@ -22,7 +22,7 @@ public class RestaurantJpaAdapter implements IRestaurantPersistencePort {
     }
 
     @Override
-    public void crateRestaurant(Restaurant restaurant) {
+    public void createRestaurant(Restaurant restaurant) {
         restaurantRepository.save(restaurantEntityMapper.toEntity(restaurant));
     }
 }

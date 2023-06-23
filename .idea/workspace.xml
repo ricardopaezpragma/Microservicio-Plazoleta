@@ -60,9 +60,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="JUnit5 Test Class" />
         <option value="Record" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -93,11 +93,14 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.pragma.plazoleta.infrastructure.output.jpa.adapter" />
+      <recent name="com.pragma.plazoleta.domain.usecase" />
+      <recent name="com.pragma.plazoleta.application.handler" />
+      <recent name="com.pragma.plazoleta.infrastructure.output.jpa.repository" />
       <recent name="com.pragma.plazoleta.infrastructure.input.rest" />
-      <recent name="com.pragma.plazoleta.infrastructure.output.feign.adapter" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.AdminControllerTest.testSaveOwner_HU1_valid">
+  <component name="RunManager" selected="Gradle.AdminControllerTest">
     <configuration name="AdminControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -122,7 +125,7 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="AdminControllerTest.testSaveOwner_HU1_valid" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="DishJpaAdapterTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -135,7 +138,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.infrastructure.input.rest.AdminControllerTest.testSaveOwner_HU1_valid&quot;" />
+            <option value="&quot;com.pragma.plazoleta.infrastructure.output.jpa.adapter.DishJpaAdapterTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -168,7 +171,7 @@
       <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="OwnerControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="RestaurantJpaAdapterTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -181,7 +184,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.infrastructure.input.rest.OwnerControllerTest&quot;" />
+            <option value="&quot;com.pragma.plazoleta.infrastructure.output.jpa.adapter.RestaurantJpaAdapterTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -192,7 +195,7 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="OwnerControllerTest.updateDish_HU4_invalid" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UserUseCaseTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -205,7 +208,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.infrastructure.input.rest.OwnerControllerTest.updateDish_HU4_invalid&quot;" />
+            <option value="&quot;com.pragma.plazoleta.domain.usecase.UserUseCaseTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -218,11 +221,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.AdminControllerTest.testSaveOwner_HU1_valid" />
-        <item itemvalue="Gradle.Microservicio-Plazoleta [bootRun]" />
         <item itemvalue="Gradle.AdminControllerTest" />
-        <item itemvalue="Gradle.OwnerControllerTest" />
-        <item itemvalue="Gradle.OwnerControllerTest.updateDish_HU4_invalid" />
+        <item itemvalue="Gradle.Microservicio-Plazoleta [bootRun]" />
+        <item itemvalue="Gradle.RestaurantJpaAdapterTest" />
+        <item itemvalue="Gradle.DishJpaAdapterTest" />
+        <item itemvalue="Gradle.UserUseCaseTest" />
       </list>
     </recent_temporary>
   </component>

@@ -19,11 +19,11 @@ public class RestaurantHandlerHandler implements IRestaurantHandler{
     private final IUserServicePort userServicePort;
 
     @Override
-    public void crateRestaurant(RestaurantDto restaurantDto) {
+    public void createRestaurant(RestaurantDto restaurantDto) {
         User user = userServicePort.getUserById(restaurantDto.getOwnerId());
         if (!user.getRole().equals("Propietario")) {
             throw new UserIsNotOwnerException(user.getName(),user.getLastName());
         }
-        restaurantServicePort.crateRestaurant(restaurantDtoMapper.restaurantDtoToRestaurant(restaurantDto));
+        restaurantServicePort.createRestaurant(restaurantDtoMapper.restaurantDtoToRestaurant(restaurantDto));
     }
 }

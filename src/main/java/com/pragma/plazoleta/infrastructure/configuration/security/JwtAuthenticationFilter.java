@@ -57,11 +57,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
 
-        response.setHeader("error","La sesión caducó");
+        response.setHeader("error","Bad credentials");
         response.setStatus(HttpStatus.FORBIDDEN.value());
 
         Map<String,String> error= new HashMap<>();
-        error.put("title","Bad credentials.");
+        error.put("title","Bad credentials");
         error.put("status","403");
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(),error);

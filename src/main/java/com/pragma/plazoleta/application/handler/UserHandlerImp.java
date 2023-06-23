@@ -21,15 +21,19 @@ public class UserHandlerImp implements IUserHandler {
     }
 
     @Override
-    public UserDto saveOwner(UserDto userDto) {
+    public void saveOwner(UserDto userDto) {
         userDto.setRole("Propietario");
         this.saveUser(userDto);
-        return userDto;
+    }
+
+    @Override
+    public void saveEmployee(UserDto userDto) {
+        userDto.setRole("Empleado");
+        this.saveUser(userDto);
     }
 
     @Override
     public void saveUser(UserDto userDto) {
-        userDto.setPassword("");
         userServicePort.saveUser(userDtoMapper.userDtoToUser(userDto));
     }
 }
