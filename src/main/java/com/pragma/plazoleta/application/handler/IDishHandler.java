@@ -8,4 +8,6 @@ public interface IDishHandler {
     void createDish(DishDto dishDto);
     void updateDish(DishUpdateDto dishUpdateDto);
     DishDto getDishById(int dishId);
+    void toggleDishStatus(String email, int dishId);
+
 }

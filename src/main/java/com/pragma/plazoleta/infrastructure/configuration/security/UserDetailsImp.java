@@ -1,6 +1,7 @@
 package com.pragma.plazoleta.infrastructure.configuration.security;
 
 import com.pragma.plazoleta.application.dto.UserDto;
+import com.pragma.plazoleta.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,26 +14,29 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class UserDetailsImp implements UserDetails {
 
-    private final UserDto userDto;
+    private final User user;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       return Collections.singleton(new SimpleGrantedAuthority(userDto.getRole()));
+       return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
+    }
+    public int getId(){
+        return user.getId();
     }
     public String getName(){
-        return userDto.getName();
+        return user.getName();
     }
     public String getLastName(){
-        return userDto.getLastName();
+        return user.getLastName();
     }
 
     @Override
     public String getPassword() {
-        return userDto.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userDto.getEmail();
+        return user.getEmail();
     }
 
     @Override

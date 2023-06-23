@@ -1,5 +1,6 @@
 package com.pragma.plazoleta.infrastructure.advice;
 
+import com.pragma.plazoleta.application.exception.UnauthorizedDishModificationException;
 import com.pragma.plazoleta.application.exception.UserIsNotOwnerException;
 import com.pragma.plazoleta.infrastructure.exception.DishNotFoundException;
 import com.pragma.plazoleta.infrastructure.exception.RestaurantNotFoundException;
@@ -59,6 +60,14 @@ public ResponseEntity userAlreadyExistException(UserAlreadyExistException error)
                 error.getMessage());
         problemDetail.setTitle("Plato no encontrado.");
         return ResponseEntity.status(404).body(problemDetail);
+    }
+    @ExceptionHandler(value = UnauthorizedDishModificationException.class)
+    public ResponseEntity unauthorizedDishModificationException(UnauthorizedDishModificationException error) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN,
+                error.getMessage());
+        problemDetail.setTitle("El usuario no es el propietario");
+        return ResponseEntity.status(403).body(problemDetail);
     }
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

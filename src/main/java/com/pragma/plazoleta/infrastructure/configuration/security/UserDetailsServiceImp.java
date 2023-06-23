@@ -2,23 +2,24 @@ package com.pragma.plazoleta.infrastructure.configuration.security;
 
 import com.pragma.plazoleta.application.dto.UserDto;
 import com.pragma.plazoleta.application.handler.IUserHandler;
+import com.pragma.plazoleta.domain.model.User;
+import com.pragma.plazoleta.infrastructure.output.feign.adapter.UserMicroserviceAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImp implements UserDetailsService {
 
-    private final IUserHandler userHandler;
+    private final UserMicroserviceAdapter userMicroserviceAdapter;
 
     @Override
     public UserDetails loadUserByUsername(String emailUser) throws UsernameNotFoundException {
-            UserDto userDto = userHandler.getUserByEmail(emailUser);
-            return new UserDetailsImp(userDto);
+            User user = userMicroserviceAdapter.getUserByEmail(emailUser);
+            return new UserDetailsImp(user);
 
     }
 }

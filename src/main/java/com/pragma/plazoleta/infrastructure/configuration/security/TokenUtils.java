@@ -14,10 +14,11 @@ public class TokenUtils {
     private static final String ACCESS_TOKEN_SECRET = "RicardoPaezPragma/MicroservicioPlazoleta2023";
     private static final Long ACCESS_TOKEN_VALIDITY_SECONDS = 2629743L;
 
-    public static String createToken(String name, String lastName, String email, String authorities) {
+    public static String createToken(int id,String name, String lastName, String email, String authorities) {
         long expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS * 1_000;
         Date expirationDate = new Date(System.currentTimeMillis() + expirationTime);
         Map<String, Object> extra = new HashMap<>();
+        extra.put("id", id);
         extra.put("name", name);
         extra.put("lastName", lastName);
         extra.put("authorities", authorities);

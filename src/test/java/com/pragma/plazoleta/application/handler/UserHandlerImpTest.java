@@ -12,82 +12,57 @@ import org.mockito.MockitoAnnotations;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-class UserHandlerImpTest {
+
+public class UserHandlerImpTest {
+    private IUserServicePort userServicePort;
+    private UserDtoMapper userDtoMapper;
     private UserHandlerImp userHandler;
 
-    @Mock
-    private IUserServicePort userServicePort;
-
-    @Mock
-    private UserDtoMapper userDtoMapper;
-
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    public void setUp() {
+        userServicePort = mock(IUserServicePort.class);
+        userDtoMapper = mock(UserDtoMapper.class);
         userHandler = new UserHandlerImp(userServicePort, userDtoMapper);
     }
 
     @Test
-    void testGetUserByEmail() {
-        // Mocking
-        String email = "test@example.com";
-        User user = new User("John","Doe","11234","31203948", LocalDate.of(1955,01,01),"email@emal.com","password","NULL");
-        user.setName("Test User");
-        UserDto expectedUserDto = new UserDto();
-        expectedUserDto.setName("Test User DTO");
-
-        when(userServicePort.getUserByEmail(email)).thenReturn(user);
-        when(userDtoMapper.userToUserDto(user)).thenReturn(expectedUserDto);
-
-        // Test
-        UserDto actualUserDto = userHandler.getUserByEmail(email);
-
-        // Verification
-        assertEquals(expectedUserDto, actualUserDto);
-    }
-
-    @Test
-    void testSaveOwner() {
-        // Mocking
+    public void testSaveOwner() {
         UserDto userDto = new UserDto();
 
-        // Test
+        User user = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "NULL");
+        user.setRole("Propietario");
+
+        when(userDtoMapper.userDtoToUser(userDto)).thenReturn(user);
+
         userHandler.saveOwner(userDto);
 
-        // Verification
-        verify(userDtoMapper).userDtoToUser(userDto);
-        assertEquals("Propietario", userDto.getRole());
-        verify(userServicePort).saveUser(userDtoMapper.userDtoToUser(userDto));
+        verify(userDtoMapper, times(1)).userDtoToUser(userDto);
+        verify(userServicePort, times(1)).saveUser(user);
     }
 
     @Test
-    void testSaveEmployee() {
-        // Mocking
+    public void testSaveEmployee() {
         UserDto userDto = new UserDto();
 
-        // Test
+        User user = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "NULL");
+        user.setRole("Empleado");
+
+        when(userDtoMapper.userDtoToUser(userDto)).thenReturn(user);
+
         userHandler.saveEmployee(userDto);
 
-        // Verification
-        verify(userDtoMapper).userDtoToUser(userDto);
-        assertEquals("Empleado", userDto.getRole());
-        verify(userServicePort).saveUser(userDtoMapper.userDtoToUser(userDto));
+        verify(userDtoMapper, times(1)).userDtoToUser(userDto);
+        verify(userServicePort, times(1)).saveUser(user);
     }
 
     @Test
-    void testSaveUser() {
-        // Mocking
-        UserDto userDto = new UserDto();
+    public void testSaveUser() {
+        User user = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "NULL");
 
-        // Test
-        userHandler.saveUser(userDto);
+        userHandler.saveUser(user);
 
-        // Verification
-        verify(userDtoMapper).userDtoToUser(userDto);
-        verify(userServicePort).saveUser(userDtoMapper.userDtoToUser(userDto));
+        verify(userServicePort, times(1)).saveUser(user);
     }
 }
-

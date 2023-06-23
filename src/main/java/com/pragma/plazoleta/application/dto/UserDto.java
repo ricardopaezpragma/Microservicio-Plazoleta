@@ -32,5 +32,4 @@ public class UserDto {
 
     @NotBlank(message = "Contraseña  requerido")
     private String password;
-    private String role;
 }

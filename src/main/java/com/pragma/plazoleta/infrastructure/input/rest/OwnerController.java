@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,19 +23,26 @@ public class OwnerController {
     private final IUserHandler userHandler;
 
     @PostMapping("/dish")
-    public ResponseEntity createDish(@Valid  @RequestBody DishDto dishDto){
+    public ResponseEntity createDish(@Valid @RequestBody DishDto dishDto) {
         dishHandler.createDish(dishDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
     @PutMapping("/dish")
-    public ResponseEntity updateDish(@Valid @RequestBody DishUpdateDto dishUpdateDto){
+    public ResponseEntity updateDish(@Valid @RequestBody DishUpdateDto dishUpdateDto) {
         dishHandler.updateDish(dishUpdateDto);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/employee")
-    public ResponseEntity saveEmployee(@Valid @RequestBody UserDto userDto){
+    public ResponseEntity saveEmployee(@Valid @RequestBody UserDto userDto) {
         userHandler.saveEmployee(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PutMapping("/toggleDishStatus/{dishId}")
+    public ResponseEntity toggleDishStatus(@PathVariable int dishId, @AuthenticationPrincipal String username) {
+        dishHandler.toggleDishStatus(username,dishId);
+        return ResponseEntity.ok().build();
     }
 }

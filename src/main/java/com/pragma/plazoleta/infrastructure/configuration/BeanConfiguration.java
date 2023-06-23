@@ -10,6 +10,7 @@ import com.pragma.plazoleta.domain.spi.IUserPersistencePort;
 import com.pragma.plazoleta.domain.usecase.DishUseCase;
 import com.pragma.plazoleta.domain.usecase.RestaurantUseCase;
 import com.pragma.plazoleta.domain.usecase.UserUseCase;
+import com.pragma.plazoleta.infrastructure.output.feign.Mapper.UserEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.feign.adapter.UserMicroserviceAdapter;
 import com.pragma.plazoleta.infrastructure.output.feign.feingclient.IUserMicroserviceFeign;
 import com.pragma.plazoleta.infrastructure.output.jpa.adapter.DishJpaAdapter;
@@ -28,7 +29,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class BeanConfiguration {
     private final IUserMicroserviceFeign userMicroserviceFeign;
-    private final UserDtoMapper userDtoMapper;
+    private final UserEntityMapper userEntityMapper;
     private final IRestaurantRepository restaurantRepository;
     private final RestaurantEntityMapper restaurantEntityMapper;
     private final IDishRepository dishRepository;
@@ -45,7 +46,7 @@ public class BeanConfiguration {
 
     @Bean
     public IUserPersistencePort userPersistencePort() {
-        return new UserMicroserviceAdapter(userMicroserviceFeign, userDtoMapper, encoder());
+        return new UserMicroserviceAdapter(userMicroserviceFeign, userEntityMapper, encoder());
     }
 
     @Bean

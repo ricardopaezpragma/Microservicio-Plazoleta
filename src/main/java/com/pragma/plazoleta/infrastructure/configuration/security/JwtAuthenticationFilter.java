@@ -43,7 +43,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         UserDetailsImp userDetails = (UserDetailsImp) authResult.getPrincipal();
 
-        String token = TokenUtils.createToken(userDetails.getName(), userDetails.getLastName(), userDetails.getUsername(), userDetails.getAuthorities()
+        String token = TokenUtils.createToken(userDetails.getId(),userDetails.getName(), userDetails.getLastName(), userDetails.getUsername(), userDetails.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList()

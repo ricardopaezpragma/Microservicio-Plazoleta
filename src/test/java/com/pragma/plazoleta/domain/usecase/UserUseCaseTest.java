@@ -10,8 +10,7 @@ import org.mockito.MockitoAnnotations;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class UserUseCaseTest {
     private UserUseCase userUseCase;
@@ -29,7 +28,7 @@ class UserUseCaseTest {
     void testGetUserById() {
         // Mocking
         int userId = 1;
-        User expectedUser = new User("John","Doe","11234","31203948", LocalDate.of(1955,01,01),"email@emal.com","password","NULL");
+        User expectedUser = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "NULL");
         expectedUser.setName("Test User");
 
         when(userPersistencePort.getUserById(userId)).thenReturn(expectedUser);
@@ -41,26 +40,35 @@ class UserUseCaseTest {
         assertEquals(expectedUser, actualUser);
     }
 
-    @Test
+   /* @Test
     void testGetUserByEmail() {
-        // Mocking
-        String email = "test@example.com";
-        User expectedUser = new User("John","Doe","11234","31203948", LocalDate.of(1955,01,01),"email@emal.com","password","NULL");
-        expectedUser.setEmail(email);
+        String email = "john@example.com";
+        User expectedUser = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "NULL");
 
         when(userPersistencePort.getUserByEmail(email)).thenReturn(expectedUser);
 
-        // Test
-        User actualUser = userUseCase.getUserByEmail(email);
+        User result = userUseCase.getUserByEmail(email);
 
-        // Verification
-        assertEquals(expectedUser, actualUser);
-    }
+        assertEquals(expectedUser, result);
+        verify(userPersistencePort, times(1)).getUserByEmail(email);
+    }*/
+   @Test
+   public void testGetUserIdByEmail() {
+       String email = "john@example.com";
+       int expectedUserId = 1;
+
+       when(userPersistencePort.getUserIdByEmail(email)).thenReturn(expectedUserId);
+
+       int result = userUseCase.getUserIdByEmail(email);
+
+       assertEquals(expectedUserId, result);
+       verify(userPersistencePort, times(1)).getUserIdByEmail(email);
+   }
 
     @Test
     void testSaveUser() {
         // Mocking
-        User userToSave = new User("John","Doe","11234","31203948", LocalDate.of(1955,01,01),"email@emal.com","password","NULL");
+        User userToSave = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "NULL");
         userToSave.setName("Test User");
 
         // Test

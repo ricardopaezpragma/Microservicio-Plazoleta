@@ -3,6 +3,7 @@ package com.pragma.plazoleta.domain.model;
 import java.time.LocalDate;
 
 public class User {
+    private Integer id;
     private String name;
     private String lastName;
     private String documentId;
@@ -11,6 +12,26 @@ public class User {
     private String email;
     private String password;
     private String role;
+
+    public User(Integer id, String name, String lastName, String documentId, String cellPhone, LocalDate dateBirth, String email, String password, String role) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.documentId = documentId;
+        this.cellPhone = cellPhone;
+        this.dateBirth = dateBirth;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -73,17 +94,6 @@ public class User {
     }
 
     public void setRole(String role) {
-        this.role = role;
-    }
-
-    public User(String name, String lastName, String documentId, String cellPhone, LocalDate dateBirth, String email, String password, String role) {
-        this.name = name;
-        this.lastName = lastName;
-        this.documentId = documentId;
-        this.cellPhone = cellPhone;
-        this.dateBirth = dateBirth;
-        this.email = email;
-        this.password = password;
         this.role = role;
     }
 }

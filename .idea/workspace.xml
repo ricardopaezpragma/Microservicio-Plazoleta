@@ -59,10 +59,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Record" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -100,8 +100,8 @@
       <recent name="com.pragma.plazoleta.infrastructure.input.rest" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.AdminControllerTest">
-    <configuration name="AdminControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId">
+    <configuration name="DishHandlerImpTest.testToggleDishStatus_WhenOwnerDoesNotMatchUserId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -114,7 +114,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.infrastructure.input.rest.AdminControllerTest&quot;" />
+            <option value="&quot;com.pragma.plazoleta.application.handler.DishHandlerImpTest.testToggleDishStatus_WhenOwnerDoesNotMatchUserId&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -125,7 +125,7 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="DishJpaAdapterTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -138,7 +138,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.infrastructure.output.jpa.adapter.DishJpaAdapterTest&quot;" />
+            <option value="&quot;com.pragma.plazoleta.application.handler.DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -149,29 +149,7 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="Microservicio-Plazoleta [bootRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="bootRun" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
-      <method v="2" />
-    </configuration>
-    <configuration name="RestaurantJpaAdapterTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UserHandlerImpTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -184,7 +162,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.infrastructure.output.jpa.adapter.RestaurantJpaAdapterTest&quot;" />
+            <option value="&quot;com.pragma.plazoleta.application.handler.UserHandlerImpTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -195,7 +173,7 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="UserUseCaseTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UserHandlerImpTest.testSaveOwner" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -208,7 +186,31 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.domain.usecase.UserUseCaseTest&quot;" />
+            <option value="&quot;com.pragma.plazoleta.application.handler.UserHandlerImpTest.testSaveOwner&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>true</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="UserUseCaseTest.testGetUserIdByEmail" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.pragma.plazoleta.domain.usecase.UserUseCaseTest.testGetUserIdByEmail&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -221,11 +223,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.AdminControllerTest" />
-        <item itemvalue="Gradle.Microservicio-Plazoleta [bootRun]" />
-        <item itemvalue="Gradle.RestaurantJpaAdapterTest" />
-        <item itemvalue="Gradle.DishJpaAdapterTest" />
-        <item itemvalue="Gradle.UserUseCaseTest" />
+        <item itemvalue="Gradle.DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId" />
+        <item itemvalue="Gradle.DishHandlerImpTest.testToggleDishStatus_WhenOwnerDoesNotMatchUserId" />
+        <item itemvalue="Gradle.UserHandlerImpTest" />
+        <item itemvalue="Gradle.UserHandlerImpTest.testSaveOwner" />
+        <item itemvalue="Gradle.UserUseCaseTest.testGetUserIdByEmail" />
       </list>
     </recent_temporary>
   </component>

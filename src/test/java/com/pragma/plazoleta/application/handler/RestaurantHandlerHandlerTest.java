@@ -42,7 +42,7 @@ class RestaurantHandlerHandlerTest {
         // Mocking
         RestaurantDto restaurantDto = new RestaurantDto();
         restaurantDto.setOwnerId(1);
-        User user = new User("John","Doe","11234","31203948", LocalDate.of(1955,01,01),"email@emal.com","password","Propietario");
+        User user = new User(1,"John","Doe","11234","31203948", LocalDate.of(1955,01,01),"email@emal.com","password","Propietario");
 
         when(userServicePort.getUserById(restaurantDto.getOwnerId())).thenReturn(user);
 
@@ -59,7 +59,7 @@ class RestaurantHandlerHandlerTest {
         // Mocking
         RestaurantDto restaurantDto = new RestaurantDto();
         restaurantDto.setOwnerId(1);
-        User user = new User("Smith","Jane","11234","31203948", LocalDate.of(1955,01,01),"email@emal.com","password","Empleado");
+        User user = new User(1,"Smith","Jane","11234","31203948", LocalDate.of(1955,01,01),"email@emal.com","password","Empleado");
 
         when(userServicePort.getUserById(restaurantDto.getOwnerId())).thenReturn(user);
 
