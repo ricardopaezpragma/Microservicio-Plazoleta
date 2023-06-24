@@ -40,7 +40,7 @@ class UserUseCaseTest {
         assertEquals(expectedUser, actualUser);
     }
 
-   /* @Test
+    @Test
     void testGetUserByEmail() {
         String email = "john@example.com";
         User expectedUser = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "NULL");
@@ -51,9 +51,9 @@ class UserUseCaseTest {
 
         assertEquals(expectedUser, result);
         verify(userPersistencePort, times(1)).getUserByEmail(email);
-    }*/
+    }
    @Test
-   public void testGetUserIdByEmail() {
+   void testGetUserIdByEmail() {
        String email = "john@example.com";
        int expectedUserId = 1;
 

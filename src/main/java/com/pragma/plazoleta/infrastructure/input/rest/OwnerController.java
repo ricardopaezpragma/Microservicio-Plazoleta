@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/owner")
-@PreAuthorize("hasAuthority('Propietario')")
+@PreAuthorize("hasRole('ROLE_PROPIETARIO')")
 @RequiredArgsConstructor
 public class OwnerController {
 
@@ -23,25 +23,25 @@ public class OwnerController {
     private final IUserHandler userHandler;
 
     @PostMapping("/dish")
-    public ResponseEntity createDish(@Valid @RequestBody DishDto dishDto) {
+    public ResponseEntity<HttpStatus> createDish(@Valid @RequestBody DishDto dishDto) {
         dishHandler.createDish(dishDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/dish")
-    public ResponseEntity updateDish(@Valid @RequestBody DishUpdateDto dishUpdateDto) {
+    public ResponseEntity<HttpStatus> updateDish(@Valid @RequestBody DishUpdateDto dishUpdateDto) {
         dishHandler.updateDish(dishUpdateDto);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/employee")
-    public ResponseEntity saveEmployee(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<HttpStatus> saveEmployee(@Valid @RequestBody UserDto userDto) {
         userHandler.saveEmployee(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/toggleDishStatus/{dishId}")
-    public ResponseEntity toggleDishStatus(@PathVariable int dishId, @AuthenticationPrincipal String username) {
+    public ResponseEntity<HttpStatus> toggleDishStatus(@PathVariable int dishId, @AuthenticationPrincipal String username) {
         dishHandler.toggleDishStatus(username,dishId);
         return ResponseEntity.ok().build();
     }

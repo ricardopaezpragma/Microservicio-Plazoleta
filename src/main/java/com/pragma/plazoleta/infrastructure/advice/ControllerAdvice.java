@@ -6,7 +6,6 @@ import com.pragma.plazoleta.infrastructure.exception.DishNotFoundException;
 import com.pragma.plazoleta.infrastructure.exception.RestaurantNotFoundException;
 import com.pragma.plazoleta.infrastructure.exception.UserAlreadyExistException;
 import com.pragma.plazoleta.infrastructure.exception.UserNotFoundException;
-import io.jsonwebtoken.JwtException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ControllerAdvice {
 @ExceptionHandler(value = UserAlreadyExistException.class)
-public ResponseEntity userAlreadyExistException(UserAlreadyExistException error) {
+public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistException error) {
     ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
             error.getMessage());
     problemDetail.setTitle("Usuario ya está registrado");
@@ -31,7 +30,7 @@ public ResponseEntity userAlreadyExistException(UserAlreadyExistException error)
 }
 
     @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity userNotFoundException(UserNotFoundException error) {
+    public ResponseEntity<ProblemDetail> userNotFoundException(UserNotFoundException error) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
                 error.getMessage());
         problemDetail.setTitle("Usuario no encontrado");
@@ -39,7 +38,7 @@ public ResponseEntity userAlreadyExistException(UserAlreadyExistException error)
     }
 
     @ExceptionHandler(value = UserIsNotOwnerException.class)
-    public ResponseEntity userIsNotOwnerException(UserIsNotOwnerException error) {
+    public ResponseEntity<ProblemDetail> userIsNotOwnerException(UserIsNotOwnerException error) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED,
                 error.getMessage());
@@ -47,14 +46,14 @@ public ResponseEntity userAlreadyExistException(UserAlreadyExistException error)
         return ResponseEntity.status(401).body(problemDetail);
     }
     @ExceptionHandler(value = RestaurantNotFoundException.class)
-    public ResponseEntity restaurantNotFoundException(RestaurantNotFoundException error) {
+    public ResponseEntity<ProblemDetail> restaurantNotFoundException(RestaurantNotFoundException error) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
                 error.getMessage());
         problemDetail.setTitle("Restaurante no encontrado.");
         return ResponseEntity.status(404).body(problemDetail);
     }
     @ExceptionHandler(value = DishNotFoundException.class)
-    public ResponseEntity dishNotFoundException(DishNotFoundException error) {
+    public ResponseEntity<ProblemDetail> dishNotFoundException(DishNotFoundException error) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
                 error.getMessage());
@@ -62,7 +61,7 @@ public ResponseEntity userAlreadyExistException(UserAlreadyExistException error)
         return ResponseEntity.status(404).body(problemDetail);
     }
     @ExceptionHandler(value = UnauthorizedDishModificationException.class)
-    public ResponseEntity unauthorizedDishModificationException(UnauthorizedDishModificationException error) {
+    public ResponseEntity<ProblemDetail> unauthorizedDishModificationException(UnauthorizedDishModificationException error) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN,
                 error.getMessage());
@@ -75,7 +74,6 @@ public ResponseEntity userAlreadyExistException(UserAlreadyExistException error)
         return exception.getBindingResult()
                 .getAllErrors()
                 .stream()
-                .peek(System.out::println)
                 .collect(Collectors.toMap(objectError -> ((FieldError) objectError).getField(),
                         DefaultMessageSourceResolvable::getDefaultMessage,
                         (existingValue, newValue) -> existingValue + " | " + newValue));

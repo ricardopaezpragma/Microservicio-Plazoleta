@@ -6,7 +6,6 @@ import com.pragma.plazoleta.domain.api.IUserServicePort;
 import com.pragma.plazoleta.domain.model.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,18 +17,21 @@ public class UserHandlerImp implements IUserHandler {
     @Override
     public void saveOwner(UserDto userDto) {
         User user= userDtoMapper.userDtoToUser(userDto);
-        user.setRole("Propietario");
-        this.saveUser(user);
+        user.setRole("PROPIETARIO");
+        userServicePort.saveUser(user);
     }
 
     @Override
     public void saveEmployee(UserDto userDto) {
         User user= userDtoMapper.userDtoToUser(userDto);
-        user.setRole("Empleado");
-        this.saveUser(user);
+        user.setRole("EMPLEADO");
+        userServicePort.saveUser(user);
     }
+
     @Override
-    public void saveUser(User user) {
+    public void saveCustomer(UserDto userDto) {
+        User user= userDtoMapper.userDtoToUser(userDto);
+        user.setRole("CLIENTE");
         userServicePort.saveUser(user);
     }
 }

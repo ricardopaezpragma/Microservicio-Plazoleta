@@ -1,7 +1,5 @@
 package com.pragma.plazoleta.infrastructure.configuration.security;
 
-import com.pragma.plazoleta.application.dto.UserDto;
-import com.pragma.plazoleta.application.handler.IUserHandler;
 import com.pragma.plazoleta.domain.model.User;
 import com.pragma.plazoleta.infrastructure.output.feign.adapter.UserMicroserviceAdapter;
 import lombok.RequiredArgsConstructor;

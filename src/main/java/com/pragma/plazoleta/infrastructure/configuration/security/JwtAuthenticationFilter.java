@@ -14,8 +14,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,13 +25,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             authCredentials = new ObjectMapper().readValue(request.getReader(), AuthCredentials.class);
         } catch (IOException e) {
-
-            throw new RuntimeException(e);
+            throw new com.pragma.plazoleta.infrastructure.exception.AuthenticationException(e.getMessage());
         }
         UsernamePasswordAuthenticationToken usernamePAT = new UsernamePasswordAuthenticationToken(
                 authCredentials.getEmail(),
                 authCredentials.getPassword(),
-                Collections.EMPTY_LIST
+                Collections.emptyList()
         );
         return getAuthenticationManager().authenticate(usernamePAT);
     }

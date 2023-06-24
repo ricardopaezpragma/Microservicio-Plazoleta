@@ -1,6 +1,5 @@
 package com.pragma.plazoleta.infrastructure.output.feign.feingclient;
 
-import com.pragma.plazoleta.application.dto.UserDto;
 import com.pragma.plazoleta.infrastructure.output.feign.Entity.UserEntity;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

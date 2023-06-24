@@ -1,6 +1,5 @@
 package com.pragma.plazoleta.infrastructure.configuration;
 
-import com.pragma.plazoleta.application.mapper.UserDtoMapper;
 import com.pragma.plazoleta.domain.api.IDishServicePort;
 import com.pragma.plazoleta.domain.api.IRestaurantServicePort;
 import com.pragma.plazoleta.domain.api.IUserServicePort;
@@ -39,6 +38,7 @@ public class BeanConfiguration {
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public IUserServicePort userServicePort() {
         return new UserUseCase(userPersistencePort());

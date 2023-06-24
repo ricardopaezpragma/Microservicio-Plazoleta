@@ -33,7 +33,7 @@ class OwnerControllerTest {
     private IRestaurantHandler restaurantHandler;
 
     @Test
-    public void createDish_HU3_valid() throws Exception {
+    void createDish_HU3_valid() throws Exception {
         MediaType textPlainUtf8 = new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8);
         String userDto = "{\n" +
                 "    \"name\": \"BicMac\",\n" +
@@ -50,7 +50,7 @@ class OwnerControllerTest {
     }
 
     @Test
-    public void createDish_HU3_invalid() throws Exception {
+    void createDish_HU3_invalid() throws Exception {
         MediaType textPlainUtf8 = new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8);
         String userDto = "{\"name\": \"\", " +
                 "\"categoryId\": \"null\", " +
@@ -72,7 +72,7 @@ class OwnerControllerTest {
     }
 
     @Test
-    public void updateDish_HU4_valid() throws Exception {
+    void updateDish_HU4_valid() throws Exception {
         MediaType textPlainUtf8 = new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8);
         String userDto = "{\n" +
                 "    \"id\": 8,\n" +
@@ -86,7 +86,7 @@ class OwnerControllerTest {
     }
 
     @Test
-    public void updateDish_HU4_invalid() throws Exception {
+    void updateDish_HU4_invalid() throws Exception {
         MediaType textPlainUtf8 = new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8);
         String userDto = "{\n" +
                 "    \"id\": null,\n" +

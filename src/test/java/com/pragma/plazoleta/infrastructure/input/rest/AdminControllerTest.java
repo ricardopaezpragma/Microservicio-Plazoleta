@@ -29,10 +29,10 @@ class AdminControllerTest {
     IDishHandler dishHandler;
     @MockBean
     AdminController adminController;
-    private String token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE2OTAxMTA5MDQsImxhc3ROYW1lIjoiVXN1YXJpbyIsIm5hbWUiOiJBZG1pbiIsImF1dGhvcml0aWVzIjoiQWRtaW5pc3RyYWRvciJ9.kfQVwwMT--hZZYA07_3vsrlGXmc8MdiKecPxNVGILDE";
+    private String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJleHAiOjE2OTAxMTA5MDQsImxhc3ROYW1lIjoiVXN1YXJpbyIsIm5hbWUiOiJBZG1pbiIsImF1dGhvcml0aWVzIjoiQWRtaW5pc3RyYWRvciJ9.kfQVwwMT--hZZYA07_3vsrlGXmc8MdiKecPxNVGILDE";
 
     @Test
-    public void testSaveOwner_HU1_valid() throws Exception {
+    void testSaveOwner_HU1_valid() throws Exception {
         MediaType textPlainUtf8 = new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8);
         String userDto = "{\"name\": \"Ricardo\", " +
                 "\"lastName\": \"Paez\", " +
@@ -49,7 +49,7 @@ class AdminControllerTest {
     }
 
     @Test
-    public void testSaveOwner_HU1_invalid() throws Exception {
+    void testSaveOwner_HU1_invalid() throws Exception {
         String userDto = "{\"name\": \"\", " +
                 "\"lastName\": \"\", " +
                 "\"cellPhone\": \"qwertyuiop\", " +
@@ -74,7 +74,7 @@ class AdminControllerTest {
     }
 
     @Test
-    public void testCrateRestaurant_HU2_valid() throws Exception {
+    void testCrateRestaurant_HU2_valid() throws Exception {
         MediaType textPlainUtf8 = new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8);
         String userDto = "{\"name\": \"McDonalds\", " +
                 "\"address\": \"Calle falsa #123\", " +
@@ -90,7 +90,7 @@ class AdminControllerTest {
     }
 
     @Test
-    public void testCrateRestaurant_HU2_invalid() throws Exception {
+    void testCrateRestaurant_HU2_invalid() throws Exception {
         String userDto = "{\"name\": \"\", " +
                 "\"address\": \"\", " +
                 "\"ownerId\": \"null\", " +

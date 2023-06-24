@@ -18,7 +18,7 @@ public class UserUseCase implements IUserServicePort {
 
     @Override
     public User getUserByEmail(String email) {
-        return getUserByEmail(email);
+        return userPersistencePort.getUserByEmail(email);
     }
 
     @Override

@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
-@PreAuthorize("hasAuthority('Administrador')")
+@PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
 @RequiredArgsConstructor
 public class AdminController {
 
     private final IUserHandler userHandler;
     private final IRestaurantHandler restaurantHandler;
     @PostMapping("/owner")
-    public ResponseEntity saveOwner(@Valid @RequestBody UserDto userDto){
+    public ResponseEntity<HttpStatus> saveOwner(@Valid @RequestBody UserDto userDto){
         userHandler.saveOwner(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
-    };
+    }
     @PostMapping("/restaurant")
-    public ResponseEntity crateRestaurant(@Valid @RequestBody RestaurantDto restaurantDto){
+    public ResponseEntity<HttpStatus> crateRestaurant(@Valid @RequestBody RestaurantDto restaurantDto){
         restaurantHandler.createRestaurant(restaurantDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
-    };
+    }
 }

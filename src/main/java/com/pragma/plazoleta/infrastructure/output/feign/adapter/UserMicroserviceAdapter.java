@@ -1,6 +1,5 @@
 package com.pragma.plazoleta.infrastructure.output.feign.adapter;
 
-import com.pragma.plazoleta.application.mapper.UserDtoMapper;
 import com.pragma.plazoleta.domain.model.User;
 import com.pragma.plazoleta.domain.spi.IUserPersistencePort;
 import com.pragma.plazoleta.infrastructure.exception.UserAlreadyExistException;

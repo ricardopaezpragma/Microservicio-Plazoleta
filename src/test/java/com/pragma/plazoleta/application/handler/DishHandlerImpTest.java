@@ -40,7 +40,7 @@ class DishHandlerImpTest {
     }
 
     @Test
-    public void testToggleDishStatus_WhenOwnerMatchesUserId() {
+    void testToggleDishStatus_WhenOwnerMatchesUserId() {
         String email = "owner@example.com";
         int dishId = 1;
         int ownerId = 1;
@@ -61,7 +61,7 @@ class DishHandlerImpTest {
     }
 
     @Test
-    public void testToggleDishStatus_WhenOwnerDoesNotMatchUserId() {
+    void testToggleDishStatus_WhenOwnerDoesNotMatchUserId() {
         String email = "user@example.com";
         int dishId = 1;
         int ownerId = 2;

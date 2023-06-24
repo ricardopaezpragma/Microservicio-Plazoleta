@@ -82,7 +82,8 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ricardo.paez_pragma/Documents/Repositorios/Proyecto Plazoleta/Microservicio-Plazoleta/build.gradle&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ricardo.paez_pragma/Documents/Repositorios/Proyecto Plazoleta/Microservicio-Plazoleta/build.gradle&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -100,53 +101,49 @@
       <recent name="com.pragma.plazoleta.infrastructure.input.rest" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId">
-    <configuration name="DishHandlerImpTest.testToggleDishStatus_WhenOwnerDoesNotMatchUserId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.UserHandlerImpTest">
+    <configuration name="Microservicio-Plazoleta [bootRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.application.handler.DishHandlerImpTest.testToggleDishStatus_WhenOwnerDoesNotMatchUserId&quot;" />
+            <option value="bootRun" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
+      <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Microservicio-Plazoleta [bootTestRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.application.handler.DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId&quot;" />
+            <option value="bootTestRun" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
+      <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
     <configuration name="UserHandlerImpTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -197,7 +194,7 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="UserUseCaseTest.testGetUserIdByEmail" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UserUseCaseTest.testGetUserByEmail" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -210,7 +207,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.domain.usecase.UserUseCaseTest.testGetUserIdByEmail&quot;" />
+            <option value="&quot;com.pragma.plazoleta.domain.usecase.UserUseCaseTest.testGetUserByEmail&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -223,11 +220,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId" />
-        <item itemvalue="Gradle.DishHandlerImpTest.testToggleDishStatus_WhenOwnerDoesNotMatchUserId" />
         <item itemvalue="Gradle.UserHandlerImpTest" />
+        <item itemvalue="Gradle.Microservicio-Plazoleta [bootRun]" />
+        <item itemvalue="Gradle.UserUseCaseTest.testGetUserByEmail" />
+        <item itemvalue="Gradle.Microservicio-Plazoleta [bootTestRun]" />
         <item itemvalue="Gradle.UserHandlerImpTest.testSaveOwner" />
-        <item itemvalue="Gradle.UserUseCaseTest.testGetUserIdByEmail" />
       </list>
     </recent_temporary>
   </component>

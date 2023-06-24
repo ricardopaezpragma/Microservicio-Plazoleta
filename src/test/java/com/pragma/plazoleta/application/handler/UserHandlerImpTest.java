@@ -14,8 +14,8 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+class UserHandlerImpTest {
 
-public class UserHandlerImpTest {
     private IUserServicePort userServicePort;
     private UserDtoMapper userDtoMapper;
     private UserHandlerImp userHandler;
@@ -28,11 +28,12 @@ public class UserHandlerImpTest {
     }
 
     @Test
-    public void testSaveOwner() {
+    void testSaveOwner() {
         UserDto userDto = new UserDto();
+        userDto.setName("John");
+        userDto.setLastName("Doe");
 
-        User user = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "NULL");
-        user.setRole("Propietario");
+        User user = new User(1, "Test", "Test", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "PROPIETARIO");
 
         when(userDtoMapper.userDtoToUser(userDto)).thenReturn(user);
 
@@ -43,11 +44,12 @@ public class UserHandlerImpTest {
     }
 
     @Test
-    public void testSaveEmployee() {
+    void testSaveEmployee() {
         UserDto userDto = new UserDto();
+        userDto.setName("John");
+        userDto.setLastName("Doe");
 
-        User user = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "NULL");
-        user.setRole("Empleado");
+        User user = new User(1, "Test", "Test", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "EMPLEADO");
 
         when(userDtoMapper.userDtoToUser(userDto)).thenReturn(user);
 
@@ -56,13 +58,19 @@ public class UserHandlerImpTest {
         verify(userDtoMapper, times(1)).userDtoToUser(userDto);
         verify(userServicePort, times(1)).saveUser(user);
     }
-
     @Test
-    public void testSaveUser() {
-        User user = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "NULL");
+    void testSaveCustomer() {
+        UserDto userDto = new UserDto();
+        userDto.setName("John");
+        userDto.setLastName("Doe");
 
-        userHandler.saveUser(user);
+        User user = new User(1, "Test", "Test", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "CLIENTE");
 
+        when(userDtoMapper.userDtoToUser(userDto)).thenReturn(user);
+
+        userHandler.saveEmployee(userDto);
+
+        verify(userDtoMapper, times(1)).userDtoToUser(userDto);
         verify(userServicePort, times(1)).saveUser(user);
     }
 }
