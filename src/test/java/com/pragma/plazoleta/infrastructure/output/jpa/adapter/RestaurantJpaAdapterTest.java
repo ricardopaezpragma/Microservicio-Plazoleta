@@ -8,6 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 
@@ -27,6 +30,23 @@ class RestaurantJpaAdapterTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         restaurantAdapter = new RestaurantJpaAdapter(restaurantRepository, restaurantEntityMapper);
+    }
+
+    @Test
+    void testGetAllRestaurants() {
+        int page = 0;
+        int size = 10;
+        Page<RestaurantEntity> restaurantEntityPage = mock(Page.class);
+        Page<Restaurant> expectedPage = mock(Page.class);
+
+        when(restaurantRepository.findAll(PageRequest.of(page, size, Sort.by("name")))).thenReturn(restaurantEntityPage);
+        when(restaurantEntityMapper.toRestaurantListPage(restaurantEntityPage)).thenReturn(expectedPage);
+
+        Page<Restaurant> result = restaurantAdapter.getAllRestaurants(page, size);
+
+        assertEquals(expectedPage, result);
+        verify(restaurantRepository, times(1)).findAll(PageRequest.of(page, size, Sort.by("name")));
+        verify(restaurantEntityMapper, times(1)).toRestaurantListPage(restaurantEntityPage);
     }
 
     @Test

@@ -6,10 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class RestaurantUseCaseTest {
     private RestaurantUseCase restaurantUseCase;
@@ -21,6 +21,19 @@ class RestaurantUseCaseTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         restaurantUseCase = new RestaurantUseCase(restaurantPersistencePort);
+    }
+    @Test
+     void testGetAllRestaurants() {
+        int page = 0;
+        int size = 10;
+        Page<Restaurant> expectedPage = mock(Page.class);
+
+        when(restaurantPersistencePort.getAllRestaurants(page, size)).thenReturn(expectedPage);
+
+        Page<Restaurant> result = restaurantUseCase.getAllRestaurants(page, size);
+
+        assertEquals(expectedPage, result);
+        verify(restaurantPersistencePort, times(1)).getAllRestaurants(page, size);
     }
 
     @Test
