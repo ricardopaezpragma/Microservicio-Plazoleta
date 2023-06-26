@@ -6,12 +6,16 @@ import com.pragma.plazoleta.infrastructure.exception.DishNotFoundException;
 import com.pragma.plazoleta.infrastructure.output.jpa.mapper.DishEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.jpa.repository.IDishRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 @RequiredArgsConstructor
 public class DishJpaAdapter implements IDishPersistencePort {
 
     private final IDishRepository dishRepository;
     private final DishEntityMapper dishEntityMapper;
+
     @Override
     public void createDish(Dish dish) {
         dishRepository.save(dishEntityMapper.toEntity(dish));
@@ -25,6 +29,14 @@ public class DishJpaAdapter implements IDishPersistencePort {
     @Override
     public Dish getDishById(int dishId) {
         return dishEntityMapper.toDish(dishRepository.findById(dishId)
-                .orElseThrow(()->new DishNotFoundException(dishId)));
+                .orElseThrow(() -> new DishNotFoundException(dishId)));
     }
+
+    @Override
+    public Page<Dish> getDishesByRestaurantIdAndCategoryId(int restaurantId, int categoryId, int page, int size) {
+        return dishEntityMapper.toDishPage(
+                dishRepository.findAllByRestaurantIdAndCategoryIdAndIsActive(
+                        restaurantId, categoryId,true, PageRequest.of(page,size, Sort.by("name"))));
+    }
+
 }

@@ -9,6 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 
@@ -77,4 +80,27 @@ class DishJpaAdapterTest {
         verify(dishEntityMapper, times(1)).toDish(dishEntity);
         Assertions.assertEquals(expectedDish, actualDish);
     }
+
+    @Test
+    void testGetDishesByRestaurantIdAndCategoryId() {
+        int restaurantId = 1;
+        int categoryId = 2;
+        int page = 0;
+        int size = 10;
+        Page<DishEntity> dishEntityPage = mock(Page.class);
+        Page<Dish> expectedPage = mock(Page.class);
+
+        when(dishRepository.findAllByRestaurantIdAndCategoryIdAndIsActive(
+                restaurantId, categoryId, true, PageRequest.of(page, size, Sort.by("name"))))
+                .thenReturn(dishEntityPage);
+        when(dishEntityMapper.toDishPage(dishEntityPage)).thenReturn(expectedPage);
+
+        Page<Dish> result = dishJpaAdapter.getDishesByRestaurantIdAndCategoryId(restaurantId, categoryId, page, size);
+
+        Assertions.assertEquals(expectedPage, result);
+        verify(dishRepository, times(1)).findAllByRestaurantIdAndCategoryIdAndIsActive(
+                restaurantId, categoryId, true, PageRequest.of(page, size, Sort.by("name")));
+        verify(dishEntityMapper, times(1)).toDishPage(dishEntityPage);
+    }
 }
+

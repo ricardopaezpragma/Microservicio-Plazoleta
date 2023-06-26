@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -120,4 +121,29 @@ class DishHandlerImpTest {
         assertEquals(expectedDishDto, actualDishDto);
     }
 
+    @Test
+    void testGetDishesByRestaurantIdAndCategoryId() {
+        int restaurantId = 1;
+        int categoryId = 1;
+        int page = 0;
+        int size = 10;
+        Page<Dish> dishPage = mock(Page.class);
+        Page<DishDto> expectedPage = mock(Page.class);
+
+        when(dishServicePort.getDishesByRestaurantIdAndCategoryId(restaurantId, categoryId, page, size)).thenReturn(dishPage);
+        when(dishDtoMapper.toDishDtoPage(dishPage)).thenReturn(expectedPage);
+
+        Page<DishDto> result = dishHandler.getDishesByRestaurantIdAndCategoryId(restaurantId, categoryId, page, size);
+
+        assertEquals(expectedPage, result);
+        verify(dishServicePort, times(1)).getDishesByRestaurantIdAndCategoryId(restaurantId, categoryId, page, size);
+        verify(dishDtoMapper, times(1)).toDishDtoPage(dishPage);
+    }
 }
+
+
+
+
+
+
+

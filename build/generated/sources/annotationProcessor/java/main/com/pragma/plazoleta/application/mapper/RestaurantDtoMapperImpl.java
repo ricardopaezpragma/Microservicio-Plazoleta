@@ -1,13 +1,14 @@
 package com.pragma.plazoleta.application.mapper;
 
 import com.pragma.plazoleta.application.dto.RestaurantDto;
+import com.pragma.plazoleta.application.dto.RestaurantResponse;
 import com.pragma.plazoleta.domain.model.Restaurant;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-23T22:14:04-0500",
+    date = "2023-06-25T18:11:00-0500",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 17.0.7 (Amazon.com Inc.)"
 )
 @Component
@@ -56,5 +57,19 @@ public class RestaurantDtoMapperImpl implements RestaurantDtoMapper {
         restaurantDto.setNit( restaurant.getNit() );
 
         return restaurantDto;
+    }
+
+    @Override
+    public RestaurantResponse restaurantToRestaurantResponse(Restaurant restaurant) {
+        if ( restaurant == null ) {
+            return null;
+        }
+
+        RestaurantResponse restaurantResponse = new RestaurantResponse();
+
+        restaurantResponse.setName( restaurant.getName() );
+        restaurantResponse.setUrlLogo( restaurant.getUrlLogo() );
+
+        return restaurantResponse;
     }
 }

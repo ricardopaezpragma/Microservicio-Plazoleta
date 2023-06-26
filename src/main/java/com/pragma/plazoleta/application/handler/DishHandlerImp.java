@@ -10,6 +10,7 @@ import com.pragma.plazoleta.domain.api.IUserServicePort;
 import com.pragma.plazoleta.domain.model.Dish;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Transactional
@@ -52,6 +53,12 @@ public class DishHandlerImp implements IDishHandler {
         }
         dish.setActive(!dish.isActive());
         dishServicePort.updateDish(dish);
+    }
+
+    @Override
+    public Page<DishDto> getDishesByRestaurantIdAndCategoryId(int restaurantId, int categoryId, int page, int size) {
+        return dishDtoMapper.toDishDtoPage(
+                dishServicePort.getDishesByRestaurantIdAndCategoryId(restaurantId,categoryId,page,size));
     }
 
 }
