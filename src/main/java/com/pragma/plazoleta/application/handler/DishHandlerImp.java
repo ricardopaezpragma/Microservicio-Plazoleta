@@ -23,15 +23,17 @@ public class DishHandlerImp implements IDishHandler {
     private final DishDtoMapper dishDtoMapper;
 
     @Override
-    public void createDish(DishDto dishDto) {
-        dishDto.setActive(true);
-        restaurantServicePort.getRestaurantById(dishDto.getRestaurantId());
-        dishServicePort.createDish(dishDtoMapper.dishDtoToDish(dishDto));
+    public void createDish(String email,DishDto dishDto) {
+        this.isRestaurantOwner(email,dishDto.getRestaurantId());
+        Dish dish=dishDtoMapper.dishDtoToDish(dishDto);
+        dish.setActive(true);
+        dishServicePort.createDish(dish);
     }
 
     @Override
-    public void updateDish(DishUpdateDto dishUpdateDto) {
+    public void updateDish(String email,DishUpdateDto dishUpdateDto) {
         Dish dish = dishDtoMapper.dishDtoToDish(this.getDishById(dishUpdateDto.id()));
+        this.isRestaurantOwner(email,dish.getRestaurantId());
         dish.setId(dishUpdateDto.id());
         dish.setPrice(Integer.parseInt(dishUpdateDto.price()));
         dish.setDescription(dishUpdateDto.description());
@@ -46,11 +48,7 @@ public class DishHandlerImp implements IDishHandler {
     @Override
     public void toggleDishStatus(String email, int dishId) {
         var dish= dishServicePort.getDishById(dishId);
-        int ownerId = restaurantServicePort.getRestaurantById(dish.getRestaurantId()).getOwnerId();
-        int userId =userServicePort.getUserIdByEmail(email);
-        if(ownerId!=userId){
-            throw new UnauthorizedDishModificationException(userId,dishId);
-        }
+        this.isRestaurantOwner(email,dish.getRestaurantId());
         dish.setActive(!dish.isActive());
         dishServicePort.updateDish(dish);
     }
@@ -59,6 +57,13 @@ public class DishHandlerImp implements IDishHandler {
     public Page<DishDto> getDishesByRestaurantIdAndCategoryId(int restaurantId, int categoryId, int page, int size) {
         return dishDtoMapper.toDishDtoPage(
                 dishServicePort.getDishesByRestaurantIdAndCategoryId(restaurantId,categoryId,page,size));
+    }
+    private void isRestaurantOwner(String email, int restaurantId){
+        int userId =userServicePort.getUserIdByEmail(email);
+        int ownerId = restaurantServicePort.getRestaurantById(restaurantId).getOwnerId();
+        if(ownerId!=userId){
+            throw new UnauthorizedDishModificationException(userId,ownerId);
+        }
     }
 
 }

@@ -84,23 +84,56 @@ class DishHandlerImpTest {
     }
 
     @Test
-    void testCreateDish() {
-        // Mocking
+    void testUpdateDish() {
+        String email = "test@example.com";
+        DishUpdateDto dishUpdateDto = new DishUpdateDto(1, "20000", "Description update");
+
         DishDto dishDto = new DishDto();
         dishDto.setRestaurantId(1);
         dishDto.setName("BicMac");
-        dishDto.setActive(true);
         dishDto.setPrice("15000");
         dishDto.setDescription("Hamburguesa");
         dishDto.setCategoryId(2);
         dishDto.setUrlImage("url");
 
-        // Test
-        dishHandler.createDish(dishDto);
+        Dish dish = new Dish(1, "BicMac", 2, "Hamburguesa", 15000, 1, "url", true);
 
-        // Verification
+        when(dishHandler.getDishById(dishUpdateDto.id()))
+                .thenReturn(dishDto);
+        when(dishDtoMapper.dishDtoToDish(dishDto)).thenReturn(dish);
+        when(userServicePort.getUserIdByEmail(email)).thenReturn(1);
+        when(restaurantServicePort.getRestaurantById(dish.getRestaurantId()))
+                .thenReturn(new Restaurant(1, "Test", "Test", 1, "123445", "url", "1234"));
+        doNothing().when(dishServicePort).updateDish(any(Dish.class));
+
+        dishHandler.updateDish(email, dishUpdateDto);
+
+        verify(dishDtoMapper, times(1)).dishDtoToDish(any(DishDto.class));
+        verify(userServicePort, times(1)).getUserIdByEmail(email);
+        verify(dishServicePort, times(1)).updateDish(any(Dish.class));
+    }
+
+    @Test
+    void testCreateDish() {
+        String email = "test@example.com";
+        DishDto dishDto = new DishDto();
+        dishDto.setRestaurantId(1);
+        dishDto.setName("BicMac");
+        dishDto.setPrice("15000");
+        dishDto.setDescription("Hamburguesa");
+        dishDto.setCategoryId(2);
+        dishDto.setUrlImage("url");
+
+        when(dishDtoMapper.dishDtoToDish(dishDto)).thenReturn(new Dish(1, "BicMac", 2, "Hamburguesa", 15000, 1, "url", true));
+        when(userServicePort.getUserIdByEmail(email)).thenReturn(1);
+        when(restaurantServicePort.getRestaurantById(dishDto.getRestaurantId())).thenReturn(new Restaurant(1, "Test", "Test", 1, "123445", "url", "1234"));
+        doNothing().when(dishServicePort).createDish(any(Dish.class));
+
+        dishHandler.createDish(email, dishDto);
+
         verify(dishDtoMapper, times(1)).dishDtoToDish(dishDto);
-        verify(restaurantServicePort, times(1)).getRestaurantById(dishDto.getRestaurantId());
+        verify(userServicePort, times(1)).getUserIdByEmail(email);
+        verify(dishServicePort, times(1)).createDish(any(Dish.class));
     }
 
     @Test

@@ -1,5 +1,7 @@
 package com.pragma.plazoleta.infrastructure.advice;
 
+import com.pragma.plazoleta.application.exception.CustomerAlreadyHasAnOrderException;
+import com.pragma.plazoleta.application.exception.OrderNotValidException;
 import com.pragma.plazoleta.application.exception.UnauthorizedDishModificationException;
 import com.pragma.plazoleta.application.exception.UserIsNotOwnerException;
 import com.pragma.plazoleta.infrastructure.exception.DishNotFoundException;
@@ -67,6 +69,22 @@ public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistE
                 error.getMessage());
         problemDetail.setTitle("El usuario no es el propietario");
         return ResponseEntity.status(403).body(problemDetail);
+    }
+    @ExceptionHandler(value = OrderNotValidException.class)
+    public ResponseEntity<ProblemDetail> orderNotValidException(OrderNotValidException error) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
+                error.getMessage());
+        problemDetail.setTitle("Pedido no valido.");
+        return ResponseEntity.status(409).body(problemDetail);
+    }
+    @ExceptionHandler(value = CustomerAlreadyHasAnOrderException.class)
+    public ResponseEntity<ProblemDetail> customerAlreadyHasAnOrderException(CustomerAlreadyHasAnOrderException error) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
+                error.getMessage());
+        problemDetail.setTitle("El usuario ya tiene un pedido.");
+        return ResponseEntity.status(409).body(problemDetail);
     }
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

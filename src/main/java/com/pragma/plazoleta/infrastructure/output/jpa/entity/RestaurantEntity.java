@@ -32,4 +32,5 @@ public class RestaurantEntity {
 
     @Column(name = "nit")
     private String nit;
+
 }

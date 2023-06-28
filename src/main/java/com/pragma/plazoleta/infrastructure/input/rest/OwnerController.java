@@ -23,14 +23,14 @@ public class OwnerController {
     private final IUserHandler userHandler;
 
     @PostMapping("/dish")
-    public ResponseEntity<HttpStatus> createDish(@Valid @RequestBody DishDto dishDto) {
-        dishHandler.createDish(dishDto);
+    public ResponseEntity<HttpStatus> createDish(@Valid @RequestBody DishDto dishDto,@AuthenticationPrincipal String username) {
+        dishHandler.createDish(username,dishDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/dish")
-    public ResponseEntity<HttpStatus> updateDish(@Valid @RequestBody DishUpdateDto dishUpdateDto) {
-        dishHandler.updateDish(dishUpdateDto);
+    public ResponseEntity<HttpStatus> updateDish(@Valid @RequestBody DishUpdateDto dishUpdateDto,@AuthenticationPrincipal String username) {
+        dishHandler.updateDish(username,dishUpdateDto);
         return ResponseEntity.ok().build();
     }
 

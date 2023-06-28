@@ -27,8 +27,10 @@ public class DishEntity {
     @Column(name = "precio")
     private Integer price;
 
-    @Column(name = "id_restaurante")
-    private Integer restaurantId;
+    @ManyToOne
+    @JoinColumn(name = "id_restaurante")
+    private RestaurantEntity restaurant;
+
 
     @Column(name = "url_imagen")
     private String urlImage;

@@ -61,8 +61,8 @@
       <list>
         <option value="Record" />
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -101,8 +101,8 @@
       <recent name="com.pragma.plazoleta.infrastructure.input.rest" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.DishHandlerImpTest.testGetDishesByRestaurantIdAndCategoryId">
-    <configuration name="DishHandlerImpTest.testGetDishesByRestaurantIdAndCategoryId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.Microservicio-Plazoleta [bootRun]">
+    <configuration name="DishHandlerImpTest.testToggleDishStatus_WhenOwnerDoesNotMatchUserId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -115,7 +115,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.application.handler.DishHandlerImpTest.testGetDishesByRestaurantIdAndCategoryId&quot;" />
+            <option value="&quot;com.pragma.plazoleta.application.handler.DishHandlerImpTest.testToggleDishStatus_WhenOwnerDoesNotMatchUserId&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -126,7 +126,7 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="DishJpaAdapterTest.testGetDishesByRestaurantIdAndCategoryId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -139,7 +139,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.infrastructure.output.jpa.adapter.DishJpaAdapterTest.testGetDishesByRestaurantIdAndCategoryId&quot;" />
+            <option value="&quot;com.pragma.plazoleta.application.handler.DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -150,7 +150,7 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="DishUseCaseTest.testGetDishesByRestaurantIdAndCategoryId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="DishHandlerImpTest.testUpdateDish" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -163,7 +163,31 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.domain.usecase.DishUseCaseTest.testGetDishesByRestaurantIdAndCategoryId&quot;" />
+            <option value="&quot;com.pragma.plazoleta.application.handler.DishHandlerImpTest.testUpdateDish&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>true</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="DishJpaAdapterTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.pragma.plazoleta.infrastructure.output.jpa.adapter.DishJpaAdapterTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -196,37 +220,13 @@
       <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="RestaurantHandlerHandlerTest.testGetAllRestaurants" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.pragma.plazoleta.application.handler.RestaurantHandlerHandlerTest.testGetAllRestaurants&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.DishHandlerImpTest.testGetDishesByRestaurantIdAndCategoryId" />
-        <item itemvalue="Gradle.DishUseCaseTest.testGetDishesByRestaurantIdAndCategoryId" />
-        <item itemvalue="Gradle.DishJpaAdapterTest.testGetDishesByRestaurantIdAndCategoryId" />
         <item itemvalue="Gradle.Microservicio-Plazoleta [bootRun]" />
-        <item itemvalue="Gradle.RestaurantHandlerHandlerTest.testGetAllRestaurants" />
+        <item itemvalue="Gradle.DishHandlerImpTest.testUpdateDish" />
+        <item itemvalue="Gradle.DishJpaAdapterTest" />
+        <item itemvalue="Gradle.DishHandlerImpTest.testToggleDishStatus_WhenOwnerDoesNotMatchUserId" />
+        <item itemvalue="Gradle.DishHandlerImpTest.testToggleDishStatus_WhenOwnerMatchesUserId" />
       </list>
     </recent_temporary>
   </component>

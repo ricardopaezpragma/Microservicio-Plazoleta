@@ -24,6 +24,4 @@ public class DishDto {
 
     @NotBlank(message = "Url de la imagen requerido.")
     private  String urlImage;
-
-    private boolean isActive;
 }
