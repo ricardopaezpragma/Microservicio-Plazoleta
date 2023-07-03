@@ -1,15 +1,18 @@
 package com.pragma.plazoleta.application.handler;
 
 import com.pragma.plazoleta.application.dto.OrderRequestDto;
+import com.pragma.plazoleta.application.dto.OrderResponseDto;
 import com.pragma.plazoleta.application.exception.CustomerAlreadyHasAnOrderException;
 import com.pragma.plazoleta.application.exception.OrderNotValidException;
-import com.pragma.plazoleta.application.mapper.OrderRequestDtoMapper;
+import com.pragma.plazoleta.application.mapper.OrderDtoMapper;
 import com.pragma.plazoleta.domain.api.IDishServicePort;
+import com.pragma.plazoleta.domain.api.IEmployeeServicePort;
 import com.pragma.plazoleta.domain.api.IOrderServicePort;
 import com.pragma.plazoleta.domain.api.IUserServicePort;
 import com.pragma.plazoleta.domain.model.Order;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,8 +23,9 @@ import java.time.LocalDate;
 public class OrderHandlerImp implements IOrderHandler {
     private final IOrderServicePort orderServicePort;
     private final IDishServicePort dishServicePort;
-    private final OrderRequestDtoMapper orderRequestDtoMapper;
+    private final OrderDtoMapper orderDtoMapper;
     private final IUserServicePort userServicePort;
+    private final IEmployeeServicePort employeeServicePort;
 
     @Override
     public Integer createOrder(String email, OrderRequestDto orderRequestDto) {
@@ -30,7 +34,7 @@ public class OrderHandlerImp implements IOrderHandler {
 
         orderServicePort.getOrdersByCustomerId(customerId)
                 .stream()
-                .filter(order -> order.getStatus().equalsIgnoreCase("Pendiente"))
+                .filter(order -> order.getStatus().equalsIgnoreCase("PENDIENTE"))
                 .findFirst()
                 .ifPresent(order -> {
                     throw new CustomerAlreadyHasAnOrderException(order.getId());
@@ -51,11 +55,17 @@ public class OrderHandlerImp implements IOrderHandler {
                 .ifPresent(dish -> {
                     throw new OrderNotValidException();
                 });
-        Order order = orderRequestDtoMapper.toModel(orderRequestDto);
+        Order order = orderDtoMapper.toModel(orderRequestDto);
         order.setCustomerId(customerId);
         order.setDate(LocalDate.now());
-        order.setChefId(5); //QUEMADO
-        order.setStatus("Pendiente");
+        order.setStatus("PENDIENTE");
         return orderServicePort.saveOrder(order);
+    }
+
+    @Override
+    public Page<OrderResponseDto> getOrdersByStatus(String email, String status, int page, int size) {
+        int userId = userServicePort.getUserIdByEmail(email);
+        int restaurantId = employeeServicePort.getEmployeeByUserId(userId).getRestaurantId();
+        return orderDtoMapper.toResponsePage(orderServicePort.getOrdersByStatusAndRestaurantId(status.toUpperCase(), restaurantId, page, size));
     }
 }

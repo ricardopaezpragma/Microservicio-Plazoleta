@@ -16,8 +16,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String emailUser) throws UsernameNotFoundException {
-            User user = userMicroserviceAdapter.getUserByEmail(emailUser);
-            return new UserDetailsImp(user);
+        User user = userMicroserviceAdapter.getUserByEmail(emailUser);
+        return new UserDetailsImp(user);
 
     }
 }

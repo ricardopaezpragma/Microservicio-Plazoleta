@@ -35,8 +35,8 @@ public class OwnerController {
     }
 
     @PostMapping("/employee")
-    public ResponseEntity<HttpStatus> saveEmployee(@Valid @RequestBody UserDto userDto) {
-        userHandler.saveEmployee(userDto);
+    public ResponseEntity<HttpStatus> saveEmployee(@Valid @RequestBody UserDto userDto,@AuthenticationPrincipal String username) {
+        userHandler.saveEmployee(userDto,username);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

@@ -9,7 +9,7 @@ import java.util.Optional;
 @FeignClient(name = "UserMicroservice", url = "${microservie.url.user}")
 public interface IUserMicroserviceFeign {
     @PostMapping("/user")
-    void saveUser(@RequestBody UserEntity userEntity);
+    UserEntity saveUser(@RequestBody UserEntity userEntity);
 
     @GetMapping("/user/{userId}")
     Optional<UserEntity> getUserId(@PathVariable int userId);

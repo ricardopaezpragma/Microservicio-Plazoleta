@@ -8,6 +8,8 @@ import com.pragma.plazoleta.infrastructure.output.jpa.mapper.OrderEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.jpa.repository.IOrderDishesEntityRepository;
 import com.pragma.plazoleta.infrastructure.output.jpa.repository.IOrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -33,5 +35,15 @@ public class OrderAdapter implements IOrderPersistencePort {
     @Override
     public List<Order> getOrdersByCustomerId(int customerId) {
         return orderEntityMapper.toDomainList(orderRepository.findByCustomerId(customerId));
+    }
+
+    @Override
+    public Page<Order> getOrdersByStatusAndRestaurantId(String status, int restaurantId, int page, int size) {
+        return orderRepository.findByStatusAndRestaurantId(status, restaurantId, PageRequest.of(page, size))
+                .map(orderEntityMapper::toDomain)
+                .map(order -> {
+                    order.setOrderDishes(orderDishesEntityMapper.toDomainList(orderDishesEntityRepository.findByOrderId(order.getId())));
+                    return order;
+                });
     }
 }

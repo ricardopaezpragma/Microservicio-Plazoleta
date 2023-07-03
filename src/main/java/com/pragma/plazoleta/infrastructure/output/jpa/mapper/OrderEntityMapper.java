@@ -10,6 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -30,7 +31,9 @@ public abstract class OrderEntityMapper {
 
     public abstract List<Order> toDomainList(List<OrderEntity> orderEntities);
 
-
+    public Page<Order> toOrderPage(Page<OrderEntity> orderEntityPage) {
+        return orderEntityPage.map(this::toDomain);
+    }
     protected RestaurantEntity getRestaurant(int restaurantId) {
         return restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));

@@ -20,8 +20,6 @@ public class DishDto {
     @Pattern(regexp = "^[1-9]\\d*$",message = "El precio tiene que ser mayor a 0 y ser un número entero.")
     private String price;
 
-    private Integer restaurantId;
-
     @NotBlank(message = "Url de la imagen requerido.")
     private  String urlImage;
 }

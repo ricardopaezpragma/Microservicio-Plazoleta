@@ -89,7 +89,7 @@ class DishHandlerImpTest {
         DishUpdateDto dishUpdateDto = new DishUpdateDto(1, "20000", "Description update");
 
         DishDto dishDto = new DishDto();
-        dishDto.setRestaurantId(1);
+       // dishDto.setRestaurantId(1);
         dishDto.setName("BicMac");
         dishDto.setPrice("15000");
         dishDto.setDescription("Hamburguesa");
@@ -117,7 +117,7 @@ class DishHandlerImpTest {
     void testCreateDish() {
         String email = "test@example.com";
         DishDto dishDto = new DishDto();
-        dishDto.setRestaurantId(1);
+      //  dishDto.setRestaurantId(1);
         dishDto.setName("BicMac");
         dishDto.setPrice("15000");
         dishDto.setDescription("Hamburguesa");
@@ -126,7 +126,7 @@ class DishHandlerImpTest {
 
         when(dishDtoMapper.dishDtoToDish(dishDto)).thenReturn(new Dish(1, "BicMac", 2, "Hamburguesa", 15000, 1, "url", true));
         when(userServicePort.getUserIdByEmail(email)).thenReturn(1);
-        when(restaurantServicePort.getRestaurantById(dishDto.getRestaurantId())).thenReturn(new Restaurant(1, "Test", "Test", 1, "123445", "url", "1234"));
+     //   when(restaurantServicePort.getRestaurantById(dishDto.getRestaurantId())).thenReturn(new Restaurant(1, "Test", "Test", 1, "123445", "url", "1234"));
         doNothing().when(dishServicePort).createDish(any(Dish.class));
 
         dishHandler.createDish(email, dishDto);

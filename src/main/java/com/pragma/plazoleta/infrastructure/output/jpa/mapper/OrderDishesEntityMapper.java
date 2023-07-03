@@ -14,7 +14,7 @@ import java.util.List;
 public interface OrderDishesEntityMapper {
     @Mapping(target = "id.dishId", source = "dishId")
     OrderDishesEntity toEntity(OrderDishes orderDishes);
-
+    @Mapping(source = "id.dishId", target = "dishId")
     OrderDishes toDomain(OrderDishesEntity orderDishesEntity);
 
     default List<OrderDishesEntity> toEntityList(List<OrderDishes> orderDishesList) {

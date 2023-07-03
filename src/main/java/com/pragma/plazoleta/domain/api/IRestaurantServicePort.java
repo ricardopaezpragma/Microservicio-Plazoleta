@@ -8,4 +8,7 @@ public interface IRestaurantServicePort {
     Page<Restaurant> getAllRestaurants(int page, int size);
     Restaurant getRestaurantById(int restaurantId);
     void createRestaurant(Restaurant restaurant);
+    Restaurant getRestaurantByOwnerId(int ownerId);
+
+
 }

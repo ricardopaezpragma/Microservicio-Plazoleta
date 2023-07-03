@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ControllerAdvice {
-@ExceptionHandler(value = UserAlreadyExistException.class)
-public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistException error) {
-    ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
-            error.getMessage());
-    problemDetail.setTitle("Usuario ya está registrado");
-    return ResponseEntity.status(409).body(problemDetail);
-}
+    @ExceptionHandler(value = UserAlreadyExistException.class)
+    public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistException error) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
+                error.getMessage());
+        problemDetail.setTitle("Usuario ya está registrado");
+        return ResponseEntity.status(409).body(problemDetail);
+    }
 
     @ExceptionHandler(value = UserNotFoundException.class)
     public ResponseEntity<ProblemDetail> userNotFoundException(UserNotFoundException error) {
@@ -47,6 +47,7 @@ public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistE
         problemDetail.setTitle("Usuario no propietario.");
         return ResponseEntity.status(401).body(problemDetail);
     }
+
     @ExceptionHandler(value = RestaurantNotFoundException.class)
     public ResponseEntity<ProblemDetail> restaurantNotFoundException(RestaurantNotFoundException error) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
@@ -54,6 +55,7 @@ public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistE
         problemDetail.setTitle("Restaurante no encontrado.");
         return ResponseEntity.status(404).body(problemDetail);
     }
+
     @ExceptionHandler(value = DishNotFoundException.class)
     public ResponseEntity<ProblemDetail> dishNotFoundException(DishNotFoundException error) {
 
@@ -62,6 +64,7 @@ public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistE
         problemDetail.setTitle("Plato no encontrado.");
         return ResponseEntity.status(404).body(problemDetail);
     }
+
     @ExceptionHandler(value = UnauthorizedDishModificationException.class)
     public ResponseEntity<ProblemDetail> unauthorizedDishModificationException(UnauthorizedDishModificationException error) {
 
@@ -70,6 +73,7 @@ public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistE
         problemDetail.setTitle("El usuario no es el propietario");
         return ResponseEntity.status(403).body(problemDetail);
     }
+
     @ExceptionHandler(value = OrderNotValidException.class)
     public ResponseEntity<ProblemDetail> orderNotValidException(OrderNotValidException error) {
 
@@ -78,6 +82,7 @@ public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistE
         problemDetail.setTitle("Pedido no valido.");
         return ResponseEntity.status(409).body(problemDetail);
     }
+
     @ExceptionHandler(value = CustomerAlreadyHasAnOrderException.class)
     public ResponseEntity<ProblemDetail> customerAlreadyHasAnOrderException(CustomerAlreadyHasAnOrderException error) {
 
@@ -86,6 +91,7 @@ public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistE
         problemDetail.setTitle("El usuario ya tiene un pedido.");
         return ResponseEntity.status(409).body(problemDetail);
     }
+
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(MethodArgumentNotValidException exception) {

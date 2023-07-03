@@ -35,13 +35,14 @@ public class UserMicroserviceAdapter implements IUserPersistencePort {
     }
 
     @Override
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         userMicroserviceFeign.getUserByEmail(user.getEmail())
-                .ifPresentOrElse(userEntity -> {
+                .ifPresent(userEntity -> {
                     throw new UserAlreadyExistException(userEntity.getEmail());
-                }, () -> {
-                    user.setPassword(passwordEncoder.encode(user.getPassword()));
-                    userMicroserviceFeign.saveUser(userEntityMapper.toEntity(user));
                 });
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userEntityMapper.toUser(
+                userMicroserviceFeign.saveUser(
+                        userEntityMapper.toEntity(user)));
     }
 }

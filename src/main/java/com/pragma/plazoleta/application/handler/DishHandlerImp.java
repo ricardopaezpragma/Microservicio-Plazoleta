@@ -24,8 +24,11 @@ public class DishHandlerImp implements IDishHandler {
 
     @Override
     public void createDish(String email,DishDto dishDto) {
-        this.isRestaurantOwner(email,dishDto.getRestaurantId());
+        int userId=userServicePort.getUserIdByEmail(email);
+        int restaurantId=restaurantServicePort.getRestaurantByOwnerId(userId).getId();
+        this.isRestaurantOwner(email,restaurantId);
         Dish dish=dishDtoMapper.dishDtoToDish(dishDto);
+        dish.setRestaurantId(restaurantId);
         dish.setActive(true);
         dishServicePort.createDish(dish);
     }

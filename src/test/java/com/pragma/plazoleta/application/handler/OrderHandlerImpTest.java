@@ -2,7 +2,7 @@ package com.pragma.plazoleta.application.handler;
 
 import com.pragma.plazoleta.application.dto.OrderDishesRequestDto;
 import com.pragma.plazoleta.application.dto.OrderRequestDto;
-import com.pragma.plazoleta.application.mapper.OrderRequestDtoMapper;
+import com.pragma.plazoleta.application.mapper.OrderDtoMapper;
 import com.pragma.plazoleta.domain.api.IDishServicePort;
 import com.pragma.plazoleta.domain.api.IOrderServicePort;
 import com.pragma.plazoleta.domain.api.IUserServicePort;
@@ -24,7 +24,7 @@ class OrderHandlerImpTest {
     @Mock
     private IDishServicePort dishServicePort;
     @Mock
-    private OrderRequestDtoMapper orderRequestDtoMapper;
+    private OrderDtoMapper orderDtoMapper;
     @Mock
     private IUserServicePort userServicePort;
     @InjectMocks
@@ -32,7 +32,7 @@ class OrderHandlerImpTest {
 
     @BeforeEach
     public void setUp() {
-        orderHandler = new OrderHandlerImp(orderServicePort, dishServicePort, orderRequestDtoMapper, userServicePort);
+       // orderHandler = new OrderHandlerImp(orderServicePort, dishServicePort, orderRequestDtoMapper, userServicePort);
     }
 
     @Test
@@ -51,18 +51,18 @@ class OrderHandlerImpTest {
         when(userServicePort.getUserIdByEmail(email)).thenReturn(customerId);
         when(orderServicePort.getOrdersByCustomerId(customerId)).thenReturn(new ArrayList<>());
         when(dishServicePort.getDishById(anyInt())).thenReturn(new Dish(1, "BicMac", 2, "Hamburguesa", 15000, 1, "url", true));
-        when(orderRequestDtoMapper.toModel(orderRequestDto)).thenReturn(order);
+        when(orderDtoMapper.toModel(orderRequestDto)).thenReturn(order);
         when(orderServicePort.saveOrder(order)).thenReturn(order.getId());
 
 
-        OrderHandlerImp orderHandler = new OrderHandlerImp(orderServicePort, dishServicePort, orderRequestDtoMapper, userServicePort);
+       // OrderHandlerImp orderHandler = new OrderHandlerImp(orderServicePort, dishServicePort, orderRequestDtoMapper, userServicePort);
 
         orderHandler.createOrder(email, orderRequestDto);
 
         verify(userServicePort, times(1)).getUserIdByEmail(email);
         verify(orderServicePort, times(1)).getOrdersByCustomerId(customerId);
         verify(dishServicePort, times(orderDishes.size())).getDishById(anyInt());
-        verify(orderRequestDtoMapper, times(1)).toModel(orderRequestDto);
+        verify(orderDtoMapper, times(1)).toModel(orderRequestDto);
         verify(orderServicePort, times(1)).saveOrder(order);
     }
 

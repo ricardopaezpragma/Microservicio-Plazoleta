@@ -28,7 +28,7 @@ public class CustomerController {
 
     @PostMapping("/signup")
     public ResponseEntity<HttpStatus> signup(@RequestBody UserDto userDto) {
-        userHandler.saveEmployee(userDto);
+        userHandler.saveCustomer(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
