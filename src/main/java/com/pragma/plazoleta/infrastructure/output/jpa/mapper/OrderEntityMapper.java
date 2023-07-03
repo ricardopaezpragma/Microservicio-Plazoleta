@@ -1,7 +1,7 @@
 package com.pragma.plazoleta.infrastructure.output.jpa.mapper;
 
 import com.pragma.plazoleta.domain.model.Order;
-import com.pragma.plazoleta.infrastructure.exception.RestaurantNotFoundException;
+import com.pragma.plazoleta.infrastructure.exception.NotFoundException;
 import com.pragma.plazoleta.infrastructure.output.jpa.entity.OrderEntity;
 import com.pragma.plazoleta.infrastructure.output.jpa.entity.RestaurantEntity;
 import com.pragma.plazoleta.infrastructure.output.jpa.repository.IDishRepository;
@@ -36,7 +36,7 @@ public abstract class OrderEntityMapper {
     }
     protected RestaurantEntity getRestaurant(int restaurantId) {
         return restaurantRepository.findById(restaurantId)
-                .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
+                .orElseThrow(() -> new NotFoundException("No restaurant found with id: "+restaurantId));
     }
 
 }

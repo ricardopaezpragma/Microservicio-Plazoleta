@@ -2,8 +2,7 @@ package com.pragma.plazoleta.infrastructure.output.jpa.adapter;
 
 import com.pragma.plazoleta.domain.model.Restaurant;
 import com.pragma.plazoleta.domain.spi.IRestaurantPersistencePort;
-import com.pragma.plazoleta.infrastructure.exception.RestaurantNotFoundException;
-import com.pragma.plazoleta.infrastructure.exception.UserNotFoundException;
+import com.pragma.plazoleta.infrastructure.exception.NotFoundException;
 import com.pragma.plazoleta.infrastructure.output.jpa.mapper.RestaurantEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.jpa.repository.IRestaurantRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +25,13 @@ public class RestaurantJpaAdapter implements IRestaurantPersistencePort {
     @Override
     public Restaurant getRestaurantById(int restaurantId) {
         return restaurantEntityMapper.toRestaurant(restaurantRepository.findById(restaurantId)
-                .orElseThrow(()->new RestaurantNotFoundException(restaurantId)));
+                .orElseThrow(()->new NotFoundException("No restaurant found with id: "+restaurantId)));
     }
 
     @Override
     public Restaurant getRestaurantByOwnerId(int ownerId) {
         return restaurantEntityMapper.toRestaurant(restaurantRepository.findOneByOwnerId(ownerId)
-                .orElseThrow(()->new UserNotFoundException(ownerId)));
+                .orElseThrow(()->new NotFoundException("No user found with id: "+ownerId)));
     }
 
     @Override

@@ -4,10 +4,8 @@ import com.pragma.plazoleta.application.exception.CustomerAlreadyHasAnOrderExcep
 import com.pragma.plazoleta.application.exception.OrderNotValidException;
 import com.pragma.plazoleta.application.exception.UnauthorizedDishModificationException;
 import com.pragma.plazoleta.application.exception.UserIsNotOwnerException;
-import com.pragma.plazoleta.infrastructure.exception.DishNotFoundException;
-import com.pragma.plazoleta.infrastructure.exception.RestaurantNotFoundException;
+import com.pragma.plazoleta.infrastructure.exception.NotFoundException;
 import com.pragma.plazoleta.infrastructure.exception.UserAlreadyExistException;
-import com.pragma.plazoleta.infrastructure.exception.UserNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -31,14 +29,6 @@ public class ControllerAdvice {
         return ResponseEntity.status(409).body(problemDetail);
     }
 
-    @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<ProblemDetail> userNotFoundException(UserNotFoundException error) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
-                error.getMessage());
-        problemDetail.setTitle("Usuario no encontrado");
-        return ResponseEntity.status(404).body(problemDetail);
-    }
-
     @ExceptionHandler(value = UserIsNotOwnerException.class)
     public ResponseEntity<ProblemDetail> userIsNotOwnerException(UserIsNotOwnerException error) {
 
@@ -48,20 +38,12 @@ public class ControllerAdvice {
         return ResponseEntity.status(401).body(problemDetail);
     }
 
-    @ExceptionHandler(value = RestaurantNotFoundException.class)
-    public ResponseEntity<ProblemDetail> restaurantNotFoundException(RestaurantNotFoundException error) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
-                error.getMessage());
-        problemDetail.setTitle("Restaurante no encontrado.");
-        return ResponseEntity.status(404).body(problemDetail);
-    }
-
-    @ExceptionHandler(value = DishNotFoundException.class)
-    public ResponseEntity<ProblemDetail> dishNotFoundException(DishNotFoundException error) {
+    @ExceptionHandler(value = NotFoundException.class)
+    public ResponseEntity<ProblemDetail> dishNotFoundException(NotFoundException error) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
                 error.getMessage());
-        problemDetail.setTitle("Plato no encontrado.");
+        problemDetail.setTitle("Not found");
         return ResponseEntity.status(404).body(problemDetail);
     }
 

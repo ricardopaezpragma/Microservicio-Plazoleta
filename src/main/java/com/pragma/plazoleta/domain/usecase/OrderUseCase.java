@@ -20,6 +20,11 @@ public class OrderUseCase implements IOrderServicePort {
     }
 
     @Override
+    public Order getOrderByOrderId(int orderId) {
+        return orderPersistencePort.getOrderByOrderId(orderId);
+    }
+
+    @Override
     public List<Order> getOrdersByCustomerId(int customerId) {
         return orderPersistencePort.getOrdersByCustomerId(customerId);
     }
@@ -27,5 +32,10 @@ public class OrderUseCase implements IOrderServicePort {
     @Override
     public Page<Order> getOrdersByStatusAndRestaurantId(String status,int restaurantId, int page, int size) {
         return orderPersistencePort.getOrdersByStatusAndRestaurantId(status,restaurantId,page,size);
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+        orderPersistencePort.updateOrder(order);
     }
 }

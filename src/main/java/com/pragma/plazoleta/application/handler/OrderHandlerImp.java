@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Transactional
@@ -67,5 +68,25 @@ public class OrderHandlerImp implements IOrderHandler {
         int userId = userServicePort.getUserIdByEmail(email);
         int restaurantId = employeeServicePort.getEmployeeByUserId(userId).getRestaurantId();
         return orderDtoMapper.toResponsePage(orderServicePort.getOrdersByStatusAndRestaurantId(status.toUpperCase(), restaurantId, page, size));
+    }
+
+    @Override
+    public List<OrderResponseDto> setOrderInMaking(String email, List<Integer> ordersIdList) {
+        int userId = userServicePort.getUserIdByEmail(email);
+        int restaurantId = employeeServicePort.getEmployeeByUserId(userId).getRestaurantId();
+        return ordersIdList
+                .stream()
+                .map(this.orderServicePort::getOrderByOrderId)
+                .filter(order -> order.getStatus().equalsIgnoreCase("PENDIENTE"))
+                .peek(order -> {
+                    if (restaurantId != order.getRestaurantId()) {
+                        throw new OrderNotValidException(order.getId(),restaurantId);
+                    }
+                    order.setStatus("EN_PREPARACION");
+                    order.setChefId(userId);
+                    orderServicePort.updateOrder(order);
+                })
+                .map(this.orderDtoMapper::toResponse)
+                .toList();
     }
 }

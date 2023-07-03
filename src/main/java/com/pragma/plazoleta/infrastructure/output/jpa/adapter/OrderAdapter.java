@@ -2,6 +2,7 @@ package com.pragma.plazoleta.infrastructure.output.jpa.adapter;
 
 import com.pragma.plazoleta.domain.model.Order;
 import com.pragma.plazoleta.domain.spi.IOrderPersistencePort;
+import com.pragma.plazoleta.infrastructure.exception.NotFoundException;
 import com.pragma.plazoleta.infrastructure.output.jpa.entity.OrderEntity;
 import com.pragma.plazoleta.infrastructure.output.jpa.mapper.OrderDishesEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.jpa.mapper.OrderEntityMapper;
@@ -33,6 +34,14 @@ public class OrderAdapter implements IOrderPersistencePort {
     }
 
     @Override
+    public Order getOrderByOrderId(int orderId) {
+        Order order = orderEntityMapper.toDomain(orderRepository.findById(orderId)
+                .orElseThrow(() -> new NotFoundException("No order found with id: " + orderId)));
+        order.setOrderDishes(orderDishesEntityMapper.toDomainList(orderDishesEntityRepository.findByOrderId(orderId)));
+        return order;
+    }
+
+    @Override
     public List<Order> getOrdersByCustomerId(int customerId) {
         return orderEntityMapper.toDomainList(orderRepository.findByCustomerId(customerId));
     }
@@ -45,5 +54,10 @@ public class OrderAdapter implements IOrderPersistencePort {
                     order.setOrderDishes(orderDishesEntityMapper.toDomainList(orderDishesEntityRepository.findByOrderId(order.getId())));
                     return order;
                 });
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+        orderRepository.save(orderEntityMapper.toEntity(order));
     }
 }

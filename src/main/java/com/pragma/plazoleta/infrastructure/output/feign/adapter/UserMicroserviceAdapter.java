@@ -2,8 +2,8 @@ package com.pragma.plazoleta.infrastructure.output.feign.adapter;
 
 import com.pragma.plazoleta.domain.model.User;
 import com.pragma.plazoleta.domain.spi.IUserPersistencePort;
+import com.pragma.plazoleta.infrastructure.exception.NotFoundException;
 import com.pragma.plazoleta.infrastructure.exception.UserAlreadyExistException;
-import com.pragma.plazoleta.infrastructure.exception.UserNotFoundException;
 import com.pragma.plazoleta.infrastructure.output.feign.Mapper.UserEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.feign.feingclient.IUserMicroserviceFeign;
 import lombok.RequiredArgsConstructor;
@@ -18,19 +18,19 @@ public class UserMicroserviceAdapter implements IUserPersistencePort {
     @Override
     public User getUserById(int userId) {
         return userEntityMapper.toUser(userMicroserviceFeign.getUserId(userId)
-                .orElseThrow(() -> new UserNotFoundException(userId)));
+                .orElseThrow(() -> new NotFoundException("No user found with id: "+userId)));
     }
 
     @Override
     public User getUserByEmail(String email) {
         return userEntityMapper.toUser(userMicroserviceFeign.getUserByEmail(email)
-                .orElseThrow(() -> new UserNotFoundException(email)));
+                .orElseThrow(() -> new NotFoundException("No user found with email: "+email)));
     }
 
     @Override
     public int getUserIdByEmail(String email) {
         return userMicroserviceFeign.getUserByEmail(email)
-                .orElseThrow(() -> new UserNotFoundException(email))
+                .orElseThrow(() -> new NotFoundException("No user found with email: "+email))
                 .getId();
     }
 
