@@ -7,10 +7,13 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface IOrderHandler {
-    Integer createOrder(String email,OrderRequestDto orderRequestDto);
+    Integer createOrder(String email, OrderRequestDto orderRequestDto);
 
-    Page<OrderResponseDto>getOrdersByStatus(String email,String status,int page, int size);
+    Page<OrderResponseDto> getOrdersByStatus(String email, String status, int page, int size);
 
     List<OrderResponseDto> setOrderInMaking(String email, List<Integer> ordersIdList);
-    void setOrderInReady(String email,int orderId);
+
+    void setOrderInReady(String email, int orderId);
+
+    void setOrderInDelivered(String email, int securityPin);
 }

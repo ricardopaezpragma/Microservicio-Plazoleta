@@ -82,10 +82,7 @@ public class OrderHandlerImp implements IOrderHandler {
                 .map(this.orderServicePort::getOrderByOrderId)
                 .filter(order -> order.getStatus() == OrderStatus.PENDIENTE)
                 .peek(order -> {
-                    if (restaurantId != order.getRestaurantId()) {
-                        throw new OrderNotValidException("The order with id: " + order.getId() +
-                                " does not belong to the restaurant with id: " + restaurantId);
-                    }
+                    this.validRestaurantOrder(restaurantId, order.getRestaurantId());
                     order.setStatus(OrderStatus.EN_PREPARACION);
                     order.setChefId(userId);
                     orderServicePort.updateOrder(order);
@@ -99,10 +96,7 @@ public class OrderHandlerImp implements IOrderHandler {
         int userId = userServicePort.getUserIdByEmail(email);
         int restaurantId = employeeServicePort.getEmployeeByUserId(userId).getRestaurantId();
         Order order = orderServicePort.getOrderByOrderId(orderId);
-        if (restaurantId != order.getRestaurantId()) {
-            throw new OrderNotValidException("The order with id: " + order.getId() +
-                    " does not belong to the restaurant with id: " + restaurantId);
-        }
+        this.validRestaurantOrder(restaurantId, order.getRestaurantId());
         if (order.getStatus() != OrderStatus.EN_PREPARACION) {
             throw new OrderNotValidException("The order with id " + orderId + " is not in preparation yet");
         }
@@ -110,5 +104,20 @@ public class OrderHandlerImp implements IOrderHandler {
         orderServicePort.updateOrder(order);
         String phone = userServicePort.getUserById(order.getCustomerId()).getCellPhone();
         sendMessageServicePort.notifyCustomer(new CustomerMessage(order.getId(), phone));
+    }
+
+    @Override
+    public void setOrderInDelivered(String email, int securityPin) {
+        int userId = userServicePort.getUserIdByEmail(email);
+        int restaurantId = employeeServicePort.getEmployeeByUserId(userId).getRestaurantId();
+        Order order = orderServicePort.getOrderByOrderId(2);
+        this.validRestaurantOrder(restaurantId, order.getRestaurantId());
+    }
+
+    private void validRestaurantOrder(int restaurantId, int orderRestaurantId) {
+        if (restaurantId != orderRestaurantId) {
+            throw new OrderNotValidException("The order with id: " + orderRestaurantId +
+                    " does not belong to the restaurant with id: " + restaurantId);
+        }
     }
 }
