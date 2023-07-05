@@ -4,6 +4,7 @@ import com.pragma.plazoleta.application.dto.OrderRequestDto;
 import com.pragma.plazoleta.application.dto.OrderResponseDto;
 import com.pragma.plazoleta.domain.model.Order;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.data.domain.Page;
 

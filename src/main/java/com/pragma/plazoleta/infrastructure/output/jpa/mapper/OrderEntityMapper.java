@@ -22,10 +22,8 @@ public abstract class OrderEntityMapper {
     private IRestaurantRepository restaurantRepository;
     @Autowired
     private IDishRepository dishRepository;
-
     @Mapping(target = "restaurant", expression = "java(getRestaurant(order.getRestaurantId()))")
     public abstract OrderEntity toEntity(Order order);
-
     @Mapping(target = "restaurantId", source = "restaurant.id")
     public abstract Order toDomain(OrderEntity orderEntity);
 

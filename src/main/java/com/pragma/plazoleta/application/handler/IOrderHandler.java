@@ -12,4 +12,5 @@ public interface IOrderHandler {
     Page<OrderResponseDto>getOrdersByStatus(String email,String status,int page, int size);
 
     List<OrderResponseDto> setOrderInMaking(String email, List<Integer> ordersIdList);
+    void setOrderInReady(String email,int orderId);
 }

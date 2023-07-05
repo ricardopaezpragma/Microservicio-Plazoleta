@@ -5,6 +5,7 @@ import com.pragma.plazoleta.application.exception.OrderNotValidException;
 import com.pragma.plazoleta.application.exception.UnauthorizedDishModificationException;
 import com.pragma.plazoleta.application.exception.UserIsNotOwnerException;
 import com.pragma.plazoleta.infrastructure.exception.NotFoundException;
+import com.pragma.plazoleta.infrastructure.exception.SendMessageException;
 import com.pragma.plazoleta.infrastructure.exception.UserAlreadyExistException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -72,6 +73,13 @@ public class ControllerAdvice {
                 error.getMessage());
         problemDetail.setTitle("El usuario ya tiene un pedido.");
         return ResponseEntity.status(409).body(problemDetail);
+    }
+    @ExceptionHandler(value = SendMessageException.class)
+    public ResponseEntity<ProblemDetail> sendMessageException(SendMessageException error) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
+                error.getMessage());
+        problemDetail.setTitle("Notification could not be sent");
+        return ResponseEntity.status(500).body(problemDetail);
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)

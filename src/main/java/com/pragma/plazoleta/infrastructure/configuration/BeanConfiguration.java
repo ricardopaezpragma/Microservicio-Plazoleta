@@ -4,7 +4,9 @@ import com.pragma.plazoleta.domain.api.*;
 import com.pragma.plazoleta.domain.spi.*;
 import com.pragma.plazoleta.domain.usecase.*;
 import com.pragma.plazoleta.infrastructure.output.feign.Mapper.UserEntityMapper;
+import com.pragma.plazoleta.infrastructure.output.feign.adapter.MessageMicroserviceAdapter;
 import com.pragma.plazoleta.infrastructure.output.feign.adapter.UserMicroserviceAdapter;
+import com.pragma.plazoleta.infrastructure.output.feign.feingclient.IMessageMicroserviceFeign;
 import com.pragma.plazoleta.infrastructure.output.feign.feingclient.IUserMicroserviceFeign;
 import com.pragma.plazoleta.infrastructure.output.jpa.adapter.DishJpaAdapter;
 import com.pragma.plazoleta.infrastructure.output.jpa.adapter.EmployeeAdapter;
@@ -33,6 +35,7 @@ public class BeanConfiguration {
     private final OrderDishesEntityMapper orderDishesEntityMapper;
     private final IEmployeeRepository employeeRepository;
     private final EmployeeEntityMapper employeeEntityMapper;
+    private final IMessageMicroserviceFeign messageMicroserviceFeign;
 
     @Bean
     public PasswordEncoder encoder() {
@@ -85,4 +88,13 @@ public class BeanConfiguration {
     public IEmployeePersistencePort employeePersistencePort(){
         return new EmployeeAdapter(employeeRepository,employeeEntityMapper);
     }
+    @Bean
+    public ISendMessageServicePort sendMessageServicePort(){
+        return new SendMessageUseCase(sendMessagePersistencePort());
+    }
+    @Bean
+    public ISendMessagePersistencePort sendMessagePersistencePort(){
+        return new MessageMicroserviceAdapter(messageMicroserviceFeign);
+    }
+
 }

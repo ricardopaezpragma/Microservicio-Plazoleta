@@ -1,5 +1,7 @@
 package com.pragma.plazoleta.domain.model;
 
+import com.pragma.plazoleta.domain.enums.OrderStatus;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -7,12 +9,12 @@ public class Order {
     private Integer id;
     private Integer customerId;
     private LocalDate date;
-    private String status;
+    private OrderStatus status;
     private Integer chefId;
     private Integer restaurantId;
     private List<OrderDishes> orderDishes;
 
-    public Order(Integer id, Integer customerId, LocalDate date, String status, Integer chefId, Integer restaurantId, List<OrderDishes> orderDishes) {
+    public Order(Integer id, Integer customerId, LocalDate date, OrderStatus status, Integer chefId, Integer restaurantId, List<OrderDishes> orderDishes) {
         this.id = id;
         this.customerId = customerId;
         this.date = date;
@@ -46,11 +48,11 @@ public class Order {
         this.date = date;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 

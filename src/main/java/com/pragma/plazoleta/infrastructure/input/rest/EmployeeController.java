@@ -34,4 +34,11 @@ public class EmployeeController {
                                                                    @RequestBody List<Integer> ordersIdList) {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderHandler.setOrderInMaking(username, ordersIdList));
     }
+
+    @PostMapping("/orders/ready/{orderId}")
+    public ResponseEntity<HttpStatus> setOrderInReady(@AuthenticationPrincipal String username,
+                                                      @PathVariable int orderId) {
+        orderHandler.setOrderInReady(username, orderId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }
