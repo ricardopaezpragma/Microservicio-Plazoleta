@@ -16,4 +16,5 @@ public interface IOrderHandler {
     void setOrderInReady(String email, int orderId);
 
     void setOrderInDelivered(String email, int securityPin);
+    void cancelOrder(String email,int orderId);
 }

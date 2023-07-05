@@ -54,4 +54,10 @@ public class CustomerController {
                                               @AuthenticationPrincipal String username){
         return ResponseEntity.ok(orderHandler.createOrder(username,orderRequestDto));
     }
+    @PostMapping("/CancelOrder/{orderId}")
+    public ResponseEntity<HttpStatus> cancelOrder(@PathVariable int orderId,
+                                               @AuthenticationPrincipal String username){
+        orderHandler.cancelOrder(username,orderId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }

@@ -110,8 +110,25 @@ public class OrderHandlerImp implements IOrderHandler {
     public void setOrderInDelivered(String email, int securityPin) {
         int userId = userServicePort.getUserIdByEmail(email);
         int restaurantId = employeeServicePort.getEmployeeByUserId(userId).getRestaurantId();
-        Order order = orderServicePort.getOrderByOrderId(2);
-        this.validRestaurantOrder(restaurantId, order.getRestaurantId());
+       /* Order order = orderServicePort.getOrderByOrderId();
+        this.validRestaurantOrder(restaurantId, order.getRestaurantId());*/
+    }
+
+    @Override
+    public void cancelOrder(String email, int orderId) {
+        int userId = userServicePort.getUserIdByEmail(email);
+        Order order = orderServicePort.getOrderByOrderId(orderId);
+        if (userId != order.getCustomerId()) {
+            throw new OrderNotValidException("The order does not belong to the customer");
+        }
+        if (order.getStatus() != OrderStatus.PENDIENTE) {
+            if (order.getStatus() == OrderStatus.CANCELADO) {
+                throw new OrderNotValidException("The order has already been canceled");
+            }
+            throw new OrderNotValidException("Lo sentimos, tu pedido ya está en preparación y no puede cancelarse");
+        }
+        order.setStatus(OrderStatus.CANCELADO);
+        orderServicePort.updateOrder(order);
     }
 
     private void validRestaurantOrder(int restaurantId, int orderRestaurantId) {
