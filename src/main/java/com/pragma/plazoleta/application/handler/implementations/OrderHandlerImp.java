@@ -1,20 +1,23 @@
-package com.pragma.plazoleta.application.handler;
+package com.pragma.plazoleta.application.handler.implementations;
 
 import com.pragma.plazoleta.application.dto.OrderRequestDto;
 import com.pragma.plazoleta.application.dto.OrderResponseDto;
 import com.pragma.plazoleta.application.exception.CustomerAlreadyHasAnOrderException;
 import com.pragma.plazoleta.application.exception.OrderNotValidException;
+import com.pragma.plazoleta.application.handler.interfaces.IOrderHandler;
 import com.pragma.plazoleta.application.mapper.OrderDtoMapper;
 import com.pragma.plazoleta.domain.api.*;
 import com.pragma.plazoleta.domain.enums.OrderStatus;
 import com.pragma.plazoleta.domain.model.CustomerMessage;
 import com.pragma.plazoleta.domain.model.Order;
+import com.pragma.plazoleta.domain.model.Traceability;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,6 +30,7 @@ public class OrderHandlerImp implements IOrderHandler {
     private final IUserServicePort userServicePort;
     private final IEmployeeServicePort employeeServicePort;
     private final ISendMessageServicePort sendMessageServicePort;
+    private final ITraceabilityServicePort traceabilityServicePort;
 
     @Override
     public Integer createOrder(String email, OrderRequestDto orderRequestDto) {
@@ -75,8 +79,8 @@ public class OrderHandlerImp implements IOrderHandler {
 
     @Override
     public List<OrderResponseDto> setOrderInMaking(String email, List<Integer> ordersIdList) {
-        int userId = userServicePort.getUserIdByEmail(email);
-        int restaurantId = employeeServicePort.getEmployeeByUserId(userId).getRestaurantId();
+        int employeeId = userServicePort.getUserIdByEmail(email);
+        int restaurantId = employeeServicePort.getEmployeeByUserId(employeeId).getRestaurantId();
         return ordersIdList
                 .stream()
                 .map(this.orderServicePort::getOrderByOrderId)
@@ -84,8 +88,15 @@ public class OrderHandlerImp implements IOrderHandler {
                 .peek(order -> {
                     this.validRestaurantOrder(restaurantId, order.getRestaurantId());
                     order.setStatus(OrderStatus.EN_PREPARACION);
-                    order.setChefId(userId);
+                    order.setChefId(employeeId);
                     orderServicePort.updateOrder(order);
+
+                    String customerEmail = userServicePort.getUserById(order.getCustomerId()).getEmail();
+                    traceabilityServicePort.saveTraceability(new Traceability(order.getId(),
+                            order.getCustomerId(), customerEmail, LocalDateTime.now(), OrderStatus.PENDIENTE,
+                            OrderStatus.EN_PREPARACION, employeeId, email));
+
+
                 })
                 .map(this.orderDtoMapper::toResponse)
                 .toList();
@@ -93,8 +104,8 @@ public class OrderHandlerImp implements IOrderHandler {
 
     @Override
     public void setOrderInReady(String email, int orderId) {
-        int userId = userServicePort.getUserIdByEmail(email);
-        int restaurantId = employeeServicePort.getEmployeeByUserId(userId).getRestaurantId();
+        int employeeId = userServicePort.getUserIdByEmail(email);
+        int restaurantId = employeeServicePort.getEmployeeByUserId(employeeId).getRestaurantId();
         Order order = orderServicePort.getOrderByOrderId(orderId);
         this.validRestaurantOrder(restaurantId, order.getRestaurantId());
         if (order.getStatus() != OrderStatus.EN_PREPARACION) {
@@ -104,6 +115,11 @@ public class OrderHandlerImp implements IOrderHandler {
         orderServicePort.updateOrder(order);
         String phone = userServicePort.getUserById(order.getCustomerId()).getCellPhone();
         sendMessageServicePort.notifyCustomer(new CustomerMessage(order.getId(), phone));
+
+        String customerEmail = userServicePort.getUserById(order.getCustomerId()).getEmail();
+        traceabilityServicePort.saveTraceability(new Traceability(order.getId(),
+                order.getCustomerId(), customerEmail, LocalDateTime.now(), OrderStatus.EN_PREPARACION,
+                OrderStatus.LISTO, employeeId, email));
     }
 
     @Override

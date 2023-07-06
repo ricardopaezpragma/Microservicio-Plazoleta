@@ -3,6 +3,7 @@ package com.pragma.plazoleta.application.handler;
 import com.pragma.plazoleta.application.dto.DishDto;
 import com.pragma.plazoleta.application.dto.DishUpdateDto;
 import com.pragma.plazoleta.application.exception.UnauthorizedDishModificationException;
+import com.pragma.plazoleta.application.handler.implementations.DishHandlerImp;
 import com.pragma.plazoleta.application.mapper.DishDtoMapper;
 import com.pragma.plazoleta.domain.api.IDishServicePort;
 import com.pragma.plazoleta.domain.api.IRestaurantServicePort;

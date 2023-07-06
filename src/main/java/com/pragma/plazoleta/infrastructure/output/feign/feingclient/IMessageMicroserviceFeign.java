@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "MessageMicroservice", url = "${microservie.url.message}")
+@FeignClient(name = "MessageMicroservice", url = "${microservice.url.message}")
 public interface IMessageMicroserviceFeign {
     @PostMapping("/send/notify-order")
     void notifyCustomer(@RequestBody CustomerMessage customerMessage);

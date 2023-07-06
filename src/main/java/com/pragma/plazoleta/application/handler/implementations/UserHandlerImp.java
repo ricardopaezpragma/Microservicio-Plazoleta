@@ -1,6 +1,7 @@
-package com.pragma.plazoleta.application.handler;
+package com.pragma.plazoleta.application.handler.implementations;
 
 import com.pragma.plazoleta.application.dto.UserDto;
+import com.pragma.plazoleta.application.handler.interfaces.IUserHandler;
 import com.pragma.plazoleta.application.mapper.UserDtoMapper;
 import com.pragma.plazoleta.domain.api.IEmployeeServicePort;
 import com.pragma.plazoleta.domain.api.IRestaurantServicePort;

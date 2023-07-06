@@ -1,8 +1,9 @@
-package com.pragma.plazoleta.application.handler;
+package com.pragma.plazoleta.application.handler.implementations;
 
 import com.pragma.plazoleta.application.dto.RestaurantDto;
 import com.pragma.plazoleta.application.dto.RestaurantResponse;
 import com.pragma.plazoleta.application.exception.UserIsNotOwnerException;
+import com.pragma.plazoleta.application.handler.interfaces.IRestaurantHandler;
 import com.pragma.plazoleta.application.mapper.RestaurantDtoMapper;
 import com.pragma.plazoleta.domain.api.IRestaurantServicePort;
 import com.pragma.plazoleta.domain.api.IUserServicePort;

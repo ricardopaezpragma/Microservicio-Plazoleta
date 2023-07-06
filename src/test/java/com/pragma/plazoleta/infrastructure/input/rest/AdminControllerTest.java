@@ -1,9 +1,8 @@
 package com.pragma.plazoleta.infrastructure.input.rest;
 
-import com.pragma.plazoleta.application.handler.IDishHandler;
-import com.pragma.plazoleta.application.handler.IUserHandler;
+import com.pragma.plazoleta.application.handler.interfaces.IDishHandler;
+import com.pragma.plazoleta.application.handler.interfaces.IUserHandler;
 import org.hamcrest.core.Is;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

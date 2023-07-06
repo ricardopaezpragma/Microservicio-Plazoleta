@@ -1,7 +1,7 @@
 package com.pragma.plazoleta.infrastructure.input.rest;
 
 import com.pragma.plazoleta.application.dto.OrderResponseDto;
-import com.pragma.plazoleta.application.handler.IOrderHandler;
+import com.pragma.plazoleta.application.handler.interfaces.IOrderHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

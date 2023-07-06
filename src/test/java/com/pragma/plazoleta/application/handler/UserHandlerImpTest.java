@@ -1,13 +1,12 @@
 package com.pragma.plazoleta.application.handler;
 
 import com.pragma.plazoleta.application.dto.UserDto;
+import com.pragma.plazoleta.application.handler.implementations.UserHandlerImp;
 import com.pragma.plazoleta.application.mapper.UserDtoMapper;
 import com.pragma.plazoleta.domain.api.IUserServicePort;
 import com.pragma.plazoleta.domain.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 

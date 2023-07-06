@@ -3,10 +3,13 @@ package com.pragma.plazoleta.infrastructure.configuration;
 import com.pragma.plazoleta.domain.api.*;
 import com.pragma.plazoleta.domain.spi.*;
 import com.pragma.plazoleta.domain.usecase.*;
+import com.pragma.plazoleta.infrastructure.output.feign.Mapper.TraceabilityEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.feign.Mapper.UserEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.feign.adapter.MessageMicroserviceAdapter;
+import com.pragma.plazoleta.infrastructure.output.feign.adapter.TraceabilityMicroserviceAdapter;
 import com.pragma.plazoleta.infrastructure.output.feign.adapter.UserMicroserviceAdapter;
 import com.pragma.plazoleta.infrastructure.output.feign.feingclient.IMessageMicroserviceFeign;
+import com.pragma.plazoleta.infrastructure.output.feign.feingclient.ITraceabilityMicroservice;
 import com.pragma.plazoleta.infrastructure.output.feign.feingclient.IUserMicroserviceFeign;
 import com.pragma.plazoleta.infrastructure.output.jpa.adapter.DishJpaAdapter;
 import com.pragma.plazoleta.infrastructure.output.jpa.adapter.EmployeeAdapter;
@@ -36,6 +39,8 @@ public class BeanConfiguration {
     private final IEmployeeRepository employeeRepository;
     private final EmployeeEntityMapper employeeEntityMapper;
     private final IMessageMicroserviceFeign messageMicroserviceFeign;
+    private final ITraceabilityMicroservice traceabilityMicroservice;
+    private final TraceabilityEntityMapper traceabilityEntityMapper;
 
     @Bean
     public PasswordEncoder encoder() {
@@ -96,5 +101,12 @@ public class BeanConfiguration {
     public ISendMessagePersistencePort sendMessagePersistencePort(){
         return new MessageMicroserviceAdapter(messageMicroserviceFeign);
     }
-
+    @Bean
+    public ITraceabilityServicePort traceabilityServicePort(){
+        return new TraceabilityUseCase(traceabilityPersistencePort());
+    }
+    @Bean
+    public ITraceabilityPersistencePort traceabilityPersistencePort(){
+        return new TraceabilityMicroserviceAdapter(traceabilityMicroservice,traceabilityEntityMapper);
+    }
 }

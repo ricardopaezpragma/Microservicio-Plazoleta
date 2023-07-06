@@ -2,8 +2,8 @@ package com.pragma.plazoleta.infrastructure.input.rest;
 
 import com.pragma.plazoleta.application.dto.RestaurantDto;
 import com.pragma.plazoleta.application.dto.UserDto;
-import com.pragma.plazoleta.application.handler.IRestaurantHandler;
-import com.pragma.plazoleta.application.handler.IUserHandler;
+import com.pragma.plazoleta.application.handler.interfaces.IRestaurantHandler;
+import com.pragma.plazoleta.application.handler.interfaces.IUserHandler;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

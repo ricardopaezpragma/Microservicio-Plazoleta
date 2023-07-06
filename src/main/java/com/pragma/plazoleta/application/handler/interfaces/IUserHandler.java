@@ -1,4 +1,4 @@
-package com.pragma.plazoleta.application.handler;
+package com.pragma.plazoleta.application.handler.interfaces;
 
 import com.pragma.plazoleta.application.dto.UserDto;
 

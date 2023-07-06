@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@FeignClient(name = "UserMicroservice", url = "${microservie.url.user}")
+@FeignClient(name = "UserMicroservice", url = "${microservice.url.user}")
 public interface IUserMicroserviceFeign {
     @PostMapping("/user")
     UserEntity saveUser(@RequestBody UserEntity userEntity);
