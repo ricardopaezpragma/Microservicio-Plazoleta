@@ -1,7 +1,7 @@
-package com.pragma.plazoleta.infrastructure.output.feign.Mapper;
+package com.pragma.plazoleta.infrastructure.output.feign.mapper;
 
 import com.pragma.plazoleta.domain.model.User;
-import com.pragma.plazoleta.infrastructure.output.feign.Entity.UserEntity;
+import com.pragma.plazoleta.infrastructure.output.feign.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

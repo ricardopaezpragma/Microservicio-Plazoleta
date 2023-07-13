@@ -8,4 +8,5 @@ public interface ITraceabilityServicePort {
     void saveTraceability(Traceability traceability);
 
     List<Traceability> getTraceabilityByCustomerId(int customerId);
+    List<Traceability> getTraceabilityByOrderId(int orderId);
 }

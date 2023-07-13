@@ -22,4 +22,9 @@ public class TraceabilityUseCase implements ITraceabilityServicePort {
     public List<Traceability> getTraceabilityByCustomerId(int customerId) {
         return traceabilityPersistencePort.getTraceabilityByCustomerId(customerId);
     }
+
+    @Override
+    public List<Traceability> getTraceabilityByOrderId(int orderId) {
+        return traceabilityPersistencePort.getTraceabilityByOrderId(orderId);
+    }
 }

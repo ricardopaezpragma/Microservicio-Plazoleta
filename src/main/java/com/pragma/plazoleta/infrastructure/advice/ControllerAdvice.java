@@ -26,8 +26,8 @@ public class ControllerAdvice {
     public ResponseEntity<ProblemDetail> userAlreadyExistException(UserAlreadyExistException error) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
                 error.getMessage());
-        problemDetail.setTitle("Usuario ya está registrado");
-        return ResponseEntity.status(409).body(problemDetail);
+        problemDetail.setTitle("User is already registered");
+        return ResponseEntity.status(HttpStatus.CONFLICT.value()).body(problemDetail);
     }
 
     @ExceptionHandler(value = UserIsNotOwnerException.class)
@@ -35,8 +35,8 @@ public class ControllerAdvice {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED,
                 error.getMessage());
-        problemDetail.setTitle("Usuario no propietario.");
-        return ResponseEntity.status(401).body(problemDetail);
+        problemDetail.setTitle("Non-owner user.");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED.value()).body(problemDetail);
     }
 
     @ExceptionHandler(value = NotFoundException.class)
@@ -45,7 +45,7 @@ public class ControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
                 error.getMessage());
         problemDetail.setTitle("Not found");
-        return ResponseEntity.status(404).body(problemDetail);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(problemDetail);
     }
 
     @ExceptionHandler(value = UnauthorizedDishModificationException.class)
@@ -53,8 +53,8 @@ public class ControllerAdvice {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN,
                 error.getMessage());
-        problemDetail.setTitle("El usuario no es el propietario");
-        return ResponseEntity.status(403).body(problemDetail);
+        problemDetail.setTitle("Non-owner user.");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN.value()).body(problemDetail);
     }
 
     @ExceptionHandler(value = OrderNotValidException.class)
@@ -62,8 +62,8 @@ public class ControllerAdvice {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
                 error.getMessage());
-        problemDetail.setTitle("Pedido no valido.");
-        return ResponseEntity.status(409).body(problemDetail);
+        problemDetail.setTitle("Invalid order");
+        return ResponseEntity.status(HttpStatus.CONFLICT.value()).body(problemDetail);
     }
 
     @ExceptionHandler(value = CustomerAlreadyHasAnOrderException.class)
@@ -71,15 +71,15 @@ public class ControllerAdvice {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
                 error.getMessage());
-        problemDetail.setTitle("El usuario ya tiene un pedido.");
-        return ResponseEntity.status(409).body(problemDetail);
+        problemDetail.setTitle("The user already has an order.");
+        return ResponseEntity.status(HttpStatus.CONFLICT.value()).body(problemDetail);
     }
     @ExceptionHandler(value = SendMessageException.class)
     public ResponseEntity<ProblemDetail> sendMessageException(SendMessageException error) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
                 error.getMessage());
         problemDetail.setTitle("Notification could not be sent");
-        return ResponseEntity.status(500).body(problemDetail);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(problemDetail);
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)

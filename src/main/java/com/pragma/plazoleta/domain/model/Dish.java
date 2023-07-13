@@ -5,7 +5,7 @@ public class Dish {
     private String name;
     private Integer categoryId;
     private String description;
-        private Integer price;
+    private Integer price;
     private Integer restaurantId;
     private String urlImage;
     private boolean isActive;

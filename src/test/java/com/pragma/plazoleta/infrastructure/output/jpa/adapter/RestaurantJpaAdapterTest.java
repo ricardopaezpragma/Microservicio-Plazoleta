@@ -4,6 +4,7 @@ import com.pragma.plazoleta.domain.model.Restaurant;
 import com.pragma.plazoleta.infrastructure.output.jpa.entity.RestaurantEntity;
 import com.pragma.plazoleta.infrastructure.output.jpa.mapper.RestaurantEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.jpa.repository.IRestaurantRepository;
+import com.pragma.plazoleta.manager.ManagerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -53,9 +54,9 @@ class RestaurantJpaAdapterTest {
     void testGetRestaurantById() {
         // Mocking
         int restaurantId = 1;
-        RestaurantEntity restaurantEntity = new RestaurantEntity();
+        RestaurantEntity restaurantEntity = ManagerFactory.createResponseEntity();
         restaurantEntity.setId(restaurantId);
-        Restaurant expectedRestaurant = new Restaurant(1,"Test","Test",1,"123445","url","1234");
+        Restaurant expectedRestaurant = ManagerFactory.createRestaurant();
         expectedRestaurant.setId(restaurantId);
 
         when(restaurantRepository.findById(restaurantId)).thenReturn(Optional.of(restaurantEntity));
@@ -71,8 +72,8 @@ class RestaurantJpaAdapterTest {
     @Test
     void testCreateRestaurant() {
         // Mocking
-        Restaurant restaurant = new Restaurant(1,"Test","Test",1,"123445","url","1234");
-        RestaurantEntity restaurantEntity = new RestaurantEntity();
+        Restaurant restaurant = ManagerFactory.createRestaurant();
+        RestaurantEntity restaurantEntity = ManagerFactory.createResponseEntity();
 
         when(restaurantEntityMapper.toEntity(restaurant)).thenReturn(restaurantEntity);
 

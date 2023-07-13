@@ -10,5 +10,6 @@ public interface IOrderPersistencePort {
     Order getOrderByOrderId(int orderId);
     List<Order> getOrdersByCustomerId(int customerId);
     Page<Order> getOrdersByStatusAndRestaurantId(String status,int restaurantId, int page, int size);
+    List<Order> getOrdersByRestaurantId(int restaurantId);
     void updateOrder(Order order);
 }

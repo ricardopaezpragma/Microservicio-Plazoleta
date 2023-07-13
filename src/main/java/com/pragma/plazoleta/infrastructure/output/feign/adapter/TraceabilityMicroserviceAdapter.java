@@ -2,7 +2,7 @@ package com.pragma.plazoleta.infrastructure.output.feign.adapter;
 
 import com.pragma.plazoleta.domain.model.Traceability;
 import com.pragma.plazoleta.domain.spi.ITraceabilityPersistencePort;
-import com.pragma.plazoleta.infrastructure.output.feign.Mapper.TraceabilityEntityMapper;
+import com.pragma.plazoleta.infrastructure.output.feign.mapper.TraceabilityEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.feign.feingclient.ITraceabilityMicroservice;
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +23,13 @@ public class TraceabilityMicroserviceAdapter implements ITraceabilityPersistence
         return traceabilityMicroservice.getTraceabilityByCustomerId(customerId)
                 .stream()
                 .map(this.traceabilityEntityMapper::toModel)
+                .toList();
+    }
+
+    @Override
+    public List<Traceability> getTraceabilityByOrderId(int orderId) {
+        return traceabilityMicroservice.getTraceabilityByOrderId(orderId)
+                .stream().map(this.traceabilityEntityMapper::toModel)
                 .toList();
     }
 }

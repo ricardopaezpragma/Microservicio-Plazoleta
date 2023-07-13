@@ -57,6 +57,14 @@ public class OrderAdapter implements IOrderPersistencePort {
     }
 
     @Override
+    public List<Order> getOrdersByRestaurantId(int restaurantId) {
+        return orderRepository.findByRestaurantId(restaurantId)
+                .stream()
+                .map(orderEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
     public void updateOrder(Order order) {
         orderRepository.save(orderEntityMapper.toEntity(order));
     }

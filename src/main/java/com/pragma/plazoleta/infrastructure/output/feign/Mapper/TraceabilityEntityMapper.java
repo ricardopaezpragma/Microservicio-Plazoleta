@@ -1,7 +1,7 @@
-package com.pragma.plazoleta.infrastructure.output.feign.Mapper;
+package com.pragma.plazoleta.infrastructure.output.feign.mapper;
 
 import com.pragma.plazoleta.domain.model.Traceability;
-import com.pragma.plazoleta.infrastructure.output.feign.Entity.TraceabilityEntity;
+import com.pragma.plazoleta.infrastructure.output.feign.entity.TraceabilityEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

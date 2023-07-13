@@ -4,6 +4,7 @@ import com.pragma.plazoleta.domain.model.Dish;
 import com.pragma.plazoleta.infrastructure.output.jpa.entity.DishEntity;
 import com.pragma.plazoleta.infrastructure.output.jpa.mapper.DishEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.jpa.repository.IDishRepository;
+import com.pragma.plazoleta.manager.ManagerFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,8 +36,8 @@ class DishJpaAdapterTest {
     @Test
     void testCreateDish() {
         // Mocking
-        Dish dish = new Dish(1, "Test Dish", 2, "", 25000, 3, "url", true);
-        DishEntity dishEntity = new DishEntity();
+        Dish dish = ManagerFactory.createDish();
+        DishEntity dishEntity = ManagerFactory.createDishEntity();
 
         when(dishEntityMapper.toEntity(dish)).thenReturn(dishEntity);
 
@@ -50,8 +51,8 @@ class DishJpaAdapterTest {
     @Test
     void testUpdateDish() {
         // Mocking
-        Dish dish = new Dish(1, "Test Dish", 2, "", 25000, 3, "url", true);
-        DishEntity dishEntity = new DishEntity();
+        Dish dish = ManagerFactory.createDish();
+        DishEntity dishEntity = ManagerFactory.createDishEntity();
 
         when(dishEntityMapper.toEntity(dish)).thenReturn(dishEntity);
 
@@ -66,8 +67,8 @@ class DishJpaAdapterTest {
     void testGetDishById() {
         // Mocking
         int dishId = 1;
-        DishEntity dishEntity = new DishEntity();
-        Dish expectedDish = new Dish(1, "Test Dish", 2, "", 25000, 3, "url", true);
+        Dish expectedDish = ManagerFactory.createDish();
+        DishEntity dishEntity = ManagerFactory.createDishEntity();
 
         when(dishRepository.findById(dishId)).thenReturn(Optional.of(dishEntity));
         when(dishEntityMapper.toDish(dishEntity)).thenReturn(expectedDish);

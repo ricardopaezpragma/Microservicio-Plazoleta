@@ -41,6 +41,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         }catch (Exception e){
+            e.getCause();
         }
 
     }

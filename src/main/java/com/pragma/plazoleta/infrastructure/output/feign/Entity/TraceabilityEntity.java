@@ -1,4 +1,4 @@
-package com.pragma.plazoleta.infrastructure.output.feign.Entity;
+package com.pragma.plazoleta.infrastructure.output.feign.entity;
 
 import lombok.Data;
 

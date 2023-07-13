@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-@Transactional
 @Service
 @RequiredArgsConstructor
 public class DishHandlerImp implements IDishHandler {
@@ -23,6 +22,8 @@ public class DishHandlerImp implements IDishHandler {
     private final IUserServicePort userServicePort;
     private final DishDtoMapper dishDtoMapper;
 
+
+    @Transactional
     @Override
     public void createDish(String email,DishDto dishDto) {
         int userId=userServicePort.getUserIdByEmail(email);
@@ -34,6 +35,7 @@ public class DishHandlerImp implements IDishHandler {
         dishServicePort.createDish(dish);
     }
 
+    @Transactional
     @Override
     public void updateDish(String email,DishUpdateDto dishUpdateDto) {
         Dish dish = dishDtoMapper.dishDtoToDish(this.getDishById(dishUpdateDto.id()));
@@ -49,6 +51,7 @@ public class DishHandlerImp implements IDishHandler {
         return dishDtoMapper.dishToDishDto(dishServicePort.getDishById(dishId));
     }
 
+    @Transactional
     @Override
     public void toggleDishStatus(String email, int dishId) {
         var dish= dishServicePort.getDishById(dishId);

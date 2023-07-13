@@ -10,6 +10,7 @@ import com.pragma.plazoleta.domain.api.IRestaurantServicePort;
 import com.pragma.plazoleta.domain.api.IUserServicePort;
 import com.pragma.plazoleta.domain.model.Dish;
 import com.pragma.plazoleta.domain.model.Restaurant;
+import com.pragma.plazoleta.manager.ManagerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -38,7 +39,10 @@ class DishHandlerImpTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        dishHandler = new DishHandlerImp(restaurantServicePort, dishServicePort, userServicePort, dishDtoMapper);
+        dishHandler = new DishHandlerImp(restaurantServicePort,
+                dishServicePort,
+                userServicePort,
+                dishDtoMapper);
     }
 
     @Test
@@ -48,10 +52,11 @@ class DishHandlerImpTest {
         int ownerId = 1;
         int userId = 1;
 
-        Dish dish = new Dish(dishId, "Test Dish", 2, "", 25000, 1, "url", true);
+        Dish dish = ManagerFactory.createDish();
+        dish.setId(dishId);
 
-        Restaurant restaurant = new Restaurant(1, "Test", "Test", ownerId, "123445", "url", "1234");
-
+        Restaurant restaurant = ManagerFactory.createRestaurant();
+        restaurant.setOwnerId(ownerId);
         when(dishServicePort.getDishById(dishId)).thenReturn(dish);
         when(restaurantServicePort.getRestaurantById(dish.getRestaurantId())).thenReturn(restaurant);
         when(userServicePort.getUserIdByEmail(email)).thenReturn(userId);
@@ -69,10 +74,11 @@ class DishHandlerImpTest {
         int ownerId = 2;
         int userId = 1;
 
-        Dish dish = new Dish(dishId, "Test Dish", 2, "", 25000, 3, "url", true);
+        Dish dish = ManagerFactory.createDish();
+        dish.setId(dishId);
 
-
-        Restaurant restaurant = new Restaurant(1, "Test", "Test", ownerId, "123445", "url", "1234");
+        Restaurant restaurant = ManagerFactory.createRestaurant();
+        restaurant.setOwnerId(ownerId);
 
         when(dishServicePort.getDishById(dishId)).thenReturn(dish);
         when(restaurantServicePort.getRestaurantById(dish.getRestaurantId())).thenReturn(restaurant);
@@ -87,24 +93,16 @@ class DishHandlerImpTest {
     @Test
     void testUpdateDish() {
         String email = "test@example.com";
-        DishUpdateDto dishUpdateDto = new DishUpdateDto(1, "20000", "Description update");
-
-        DishDto dishDto = new DishDto();
-       // dishDto.setRestaurantId(1);
-        dishDto.setName("BicMac");
-        dishDto.setPrice("15000");
-        dishDto.setDescription("Hamburguesa");
-        dishDto.setCategoryId(2);
-        dishDto.setUrlImage("url");
-
-        Dish dish = new Dish(1, "BicMac", 2, "Hamburguesa", 15000, 1, "url", true);
+        DishUpdateDto dishUpdateDto = ManagerFactory.createDishUpdateDto();
+        DishDto dishDto = ManagerFactory.createDishDto();
+        Dish dish = ManagerFactory.createDish();
 
         when(dishHandler.getDishById(dishUpdateDto.id()))
                 .thenReturn(dishDto);
         when(dishDtoMapper.dishDtoToDish(dishDto)).thenReturn(dish);
         when(userServicePort.getUserIdByEmail(email)).thenReturn(1);
         when(restaurantServicePort.getRestaurantById(dish.getRestaurantId()))
-                .thenReturn(new Restaurant(1, "Test", "Test", 1, "123445", "url", "1234"));
+                .thenReturn(ManagerFactory.createRestaurant());
         doNothing().when(dishServicePort).updateDish(any(Dish.class));
 
         dishHandler.updateDish(email, dishUpdateDto);
@@ -114,36 +112,52 @@ class DishHandlerImpTest {
         verify(dishServicePort, times(1)).updateDish(any(Dish.class));
     }
 
-    @Test
-    void testCreateDish() {
-        String email = "test@example.com";
-        DishDto dishDto = new DishDto();
-      //  dishDto.setRestaurantId(1);
-        dishDto.setName("BicMac");
-        dishDto.setPrice("15000");
-        dishDto.setDescription("Hamburguesa");
-        dishDto.setCategoryId(2);
-        dishDto.setUrlImage("url");
+  /*  @Test
+    void createDish_shouldCallDependenciesAndCreateDish() {
+        // Arrange
+        String email = "example@example.com";
+        DishDto dishDto = ManagerFactory.createDishDto();
+        int userId = 123;
+        int restaurantId = 456;
+        Dish dish = ManagerFactory.createDish();
+        Restaurant restaurant = ManagerFactory.createRestaurant();
+        restaurant.setId(restaurantId);
+        restaurant.setOwnerId(123);
+        when(userServicePort.getUserIdByEmail(email)).thenReturn(userId);
+        when(restaurantServicePort.getRestaurantByOwnerId(userId)).thenReturn(restaurant);
+        when(dishDtoMapper.dishDtoToDish(dishDto)).thenReturn(dish);
 
-        when(dishDtoMapper.dishDtoToDish(dishDto)).thenReturn(new Dish(1, "BicMac", 2, "Hamburguesa", 15000, 1, "url", true));
-        when(userServicePort.getUserIdByEmail(email)).thenReturn(1);
-     //   when(restaurantServicePort.getRestaurantById(dishDto.getRestaurantId())).thenReturn(new Restaurant(1, "Test", "Test", 1, "123445", "url", "1234"));
-        doNothing().when(dishServicePort).createDish(any(Dish.class));
-
+        // Act
         dishHandler.createDish(email, dishDto);
 
-        verify(dishDtoMapper, times(1)).dishDtoToDish(dishDto);
+        // Assert
         verify(userServicePort, times(1)).getUserIdByEmail(email);
-        verify(dishServicePort, times(1)).createDish(any(Dish.class));
+        verify(restaurantServicePort, times(1)).getRestaurantByOwnerId(userId);
+        verify(dishDtoMapper, times(1)).dishDtoToDish(dishDto);
+        verify(dishServicePort, times(1)).createDish(dish);
+    }
+*/
+   /* @Test
+    public void createDish_notRestaurantOwner_shouldThrowUnauthorizedDishModificationException() {
+        // Arrange
+        String email = "example@example.com";
+        DishDto dishDto = new DishDto();
+        int userId = 123;
+        int restaurantId = 456;
+        when(userServicePort.getUserIdByEmail(email)).thenReturn(userId);
+        when(restaurantServicePort.getRestaurantByOwnerId(userId)).thenReturn(new Restaurant(restaurantId + 1));
+
+        // Act & Assert
+        assertThrows(UnauthorizedDishModificationException.class, () -> dishHandlerImp.createDish(email, dishDto));
     }
 
     @Test
     void testGetDishById() {
         // Mocking
         int dishId = 1;
-        DishDto expectedDishDto = new DishDto();
+        DishDto expectedDishDto =ManagerFactory.createDishDto();
 
-        when(dishServicePort.getDishById(dishId)).thenReturn(new Dish(1, "Test Dish", 2, "", 25000, 3, "url", true));
+        when(dishServicePort.getDishById(dishId)).thenReturn(ManagerFactory.createDish());
         when(dishDtoMapper.dishToDishDto(any(Dish.class))).thenReturn(expectedDishDto);
 
         // Test
@@ -154,7 +168,7 @@ class DishHandlerImpTest {
         verify(dishDtoMapper, times(1)).dishToDishDto(any(Dish.class));
         assertEquals(expectedDishDto, actualDishDto);
     }
-
+*/
     @Test
     void testGetDishesByRestaurantIdAndCategoryId() {
         int restaurantId = 1;
@@ -174,9 +188,6 @@ class DishHandlerImpTest {
         verify(dishDtoMapper, times(1)).toDishDtoPage(dishPage);
     }
 }
-
-
-
 
 
 

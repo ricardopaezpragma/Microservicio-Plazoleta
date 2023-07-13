@@ -43,7 +43,7 @@ public class EmployeeController {
     }
     @PostMapping("/orders/delivered/{securityPin}")
     public ResponseEntity<HttpStatus> setOrderInDelivered(@AuthenticationPrincipal String username,
-                                                      @PathVariable int securityPin) {
+                                                      @PathVariable String securityPin) {
         orderHandler.setOrderInDelivered(username, securityPin);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

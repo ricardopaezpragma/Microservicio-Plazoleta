@@ -4,7 +4,7 @@ import com.pragma.plazoleta.domain.model.User;
 import com.pragma.plazoleta.domain.spi.IUserPersistencePort;
 import com.pragma.plazoleta.infrastructure.exception.NotFoundException;
 import com.pragma.plazoleta.infrastructure.exception.UserAlreadyExistException;
-import com.pragma.plazoleta.infrastructure.output.feign.Mapper.UserEntityMapper;
+import com.pragma.plazoleta.infrastructure.output.feign.mapper.UserEntityMapper;
 import com.pragma.plazoleta.infrastructure.output.feign.feingclient.IUserMicroserviceFeign;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -6,6 +6,7 @@ import com.pragma.plazoleta.application.exception.CustomerAlreadyHasAnOrderExcep
 import com.pragma.plazoleta.application.exception.OrderNotValidException;
 import com.pragma.plazoleta.application.handler.interfaces.IOrderHandler;
 import com.pragma.plazoleta.application.mapper.OrderDtoMapper;
+import com.pragma.plazoleta.application.utils.SecurityPing;
 import com.pragma.plazoleta.domain.api.*;
 import com.pragma.plazoleta.domain.enums.OrderStatus;
 import com.pragma.plazoleta.domain.model.CustomerMessage;
@@ -21,7 +22,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class OrderHandlerImp implements IOrderHandler {
     private final IOrderServicePort orderServicePort;
@@ -32,6 +32,7 @@ public class OrderHandlerImp implements IOrderHandler {
     private final ISendMessageServicePort sendMessageServicePort;
     private final ITraceabilityServicePort traceabilityServicePort;
 
+    @Transactional
     @Override
     public Integer createOrder(String email, OrderRequestDto orderRequestDto) {
         int customerId = userServicePort.getUserIdByEmail(email);
@@ -77,6 +78,7 @@ public class OrderHandlerImp implements IOrderHandler {
         return orderDtoMapper.toResponsePage(orderServicePort.getOrdersByStatusAndRestaurantId(status.toUpperCase(), restaurantId, page, size));
     }
 
+    @Transactional
     @Override
     public List<OrderResponseDto> setOrderInMaking(String email, List<Integer> ordersIdList) {
         int employeeId = userServicePort.getUserIdByEmail(email);
@@ -102,6 +104,7 @@ public class OrderHandlerImp implements IOrderHandler {
                 .toList();
     }
 
+    @Transactional
     @Override
     public void setOrderInReady(String email, int orderId) {
         int employeeId = userServicePort.getUserIdByEmail(email);
@@ -114,7 +117,7 @@ public class OrderHandlerImp implements IOrderHandler {
         order.setStatus(OrderStatus.LISTO);
         orderServicePort.updateOrder(order);
         String phone = userServicePort.getUserById(order.getCustomerId()).getCellPhone();
-        sendMessageServicePort.notifyCustomer(new CustomerMessage(order.getId(), phone));
+        sendMessageServicePort.notifyCustomer(new CustomerMessage(order.getId(), phone, SecurityPing.generatePin(orderId,restaurantId)));
 
         String customerEmail = userServicePort.getUserById(order.getCustomerId()).getEmail();
         traceabilityServicePort.saveTraceability(new Traceability(order.getId(),
@@ -122,14 +125,26 @@ public class OrderHandlerImp implements IOrderHandler {
                 OrderStatus.LISTO, employeeId, email));
     }
 
+    @Transactional
     @Override
-    public void setOrderInDelivered(String email, int securityPin) {
-        int userId = userServicePort.getUserIdByEmail(email);
-        int restaurantId = employeeServicePort.getEmployeeByUserId(userId).getRestaurantId();
-       /* Order order = orderServicePort.getOrderByOrderId();
-        this.validRestaurantOrder(restaurantId, order.getRestaurantId());*/
+    public void setOrderInDelivered(String email, String securityPin) {
+        int employeeId = userServicePort.getUserIdByEmail(email);
+        int restaurantId = employeeServicePort.getEmployeeByUserId(employeeId).getRestaurantId();
+        int orderId=SecurityPing.decodePin(securityPin,restaurantId);
+        Order order = orderServicePort.getOrderByOrderId(orderId);
+        this.validRestaurantOrder(restaurantId, order.getRestaurantId());
+        if (order.getStatus() != OrderStatus.LISTO) {
+            throw new OrderNotValidException("The order with id " + orderId + " is not in ready yet");
+        }
+        order.setStatus(OrderStatus.ENTREGADO);
+        orderServicePort.updateOrder(order);
+        String customerEmail = userServicePort.getUserById(order.getCustomerId()).getEmail();
+        traceabilityServicePort.saveTraceability(new Traceability(order.getId(),
+                order.getCustomerId(), customerEmail, LocalDateTime.now(), OrderStatus.LISTO,
+                OrderStatus.ENTREGADO, employeeId, email));
     }
 
+    @Transactional
     @Override
     public void cancelOrder(String email, int orderId) {
         int userId = userServicePort.getUserIdByEmail(email);

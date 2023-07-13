@@ -16,12 +16,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class RestaurantHandlerHandler implements IRestaurantHandler {
     private final IRestaurantServicePort restaurantServicePort;
     private final RestaurantDtoMapper restaurantDtoMapper;
     private final IUserServicePort userServicePort;
 
+    @Transactional
     @Override
     public void createRestaurant(RestaurantDto restaurantDto) {
         User user = userServicePort.getUserById(restaurantDto.getOwnerId());

@@ -9,6 +9,7 @@ import com.pragma.plazoleta.domain.api.IRestaurantServicePort;
 import com.pragma.plazoleta.domain.api.IUserServicePort;
 import com.pragma.plazoleta.domain.model.Restaurant;
 import com.pragma.plazoleta.domain.model.User;
+import com.pragma.plazoleta.manager.ManagerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -44,10 +45,9 @@ class RestaurantHandlerHandlerTest {
     void testCrateRestaurant() {
 
         // Mocking
-        RestaurantDto restaurantDto = new RestaurantDto();
-        restaurantDto.setOwnerId(1);
-        User user = new User(1, "John", "Doe", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "Propietario");
-
+        RestaurantDto restaurantDto = ManagerFactory.createRestaurantDto();
+        User user = ManagerFactory.createUser();
+        user.setRole("PROPIETARIO");
         when(userServicePort.getUserById(restaurantDto.getOwnerId())).thenReturn(user);
 
         // Test
@@ -61,9 +61,9 @@ class RestaurantHandlerHandlerTest {
     @Test
     void testCrateRestaurantThrowsException() {
         // Mocking
-        RestaurantDto restaurantDto = new RestaurantDto();
-        restaurantDto.setOwnerId(1);
-        User user = new User(1, "Smith", "Jane", "11234", "31203948", LocalDate.of(1955, 01, 01), "email@emal.com", "password", "Empleado");
+        RestaurantDto restaurantDto = ManagerFactory.createRestaurantDto();
+        User user = ManagerFactory.createUser();
+        user.setRole("EMPLEADO");
 
         when(userServicePort.getUserById(restaurantDto.getOwnerId())).thenReturn(user);
 

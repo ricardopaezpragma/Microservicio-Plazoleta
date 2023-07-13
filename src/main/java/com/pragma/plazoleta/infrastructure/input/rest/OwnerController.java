@@ -2,8 +2,10 @@ package com.pragma.plazoleta.infrastructure.input.rest;
 
 import com.pragma.plazoleta.application.dto.DishDto;
 import com.pragma.plazoleta.application.dto.DishUpdateDto;
+import com.pragma.plazoleta.application.dto.TraceabilityRestaurantDto;
 import com.pragma.plazoleta.application.dto.UserDto;
 import com.pragma.plazoleta.application.handler.interfaces.IDishHandler;
+import com.pragma.plazoleta.application.handler.interfaces.ITraceabilityHandler;
 import com.pragma.plazoleta.application.handler.interfaces.IUserHandler;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/owner")
 @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
@@ -21,6 +25,7 @@ public class OwnerController {
 
     private final IDishHandler dishHandler;
     private final IUserHandler userHandler;
+    private final ITraceabilityHandler traceabilityHandler;
 
     @PostMapping("/dish")
     public ResponseEntity<HttpStatus> createDish(@Valid @RequestBody DishDto dishDto,@AuthenticationPrincipal String username) {
@@ -44,5 +49,10 @@ public class OwnerController {
     public ResponseEntity<HttpStatus> toggleDishStatus(@PathVariable int dishId, @AuthenticationPrincipal String username) {
         dishHandler.toggleDishStatus(username,dishId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/traceability/orders")
+    public  ResponseEntity<List<TraceabilityRestaurantDto>> getAllTraceability(@AuthenticationPrincipal String username){
+        return ResponseEntity.ok(traceabilityHandler.getAllTraceability(username));
     }
 }
